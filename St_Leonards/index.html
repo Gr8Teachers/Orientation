@@ -50,6 +50,9 @@ input[type=text]:focus{outline:none;border-color:var(--accent)}
 .prog i{width:18px;height:18px;border-radius:50%;border:2px solid var(--line-strong);flex:none}
 .prog[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .prog[aria-pressed="true"] i{border:5px solid var(--accent)}
+.modes{grid-template-columns:repeat(2,1fr)}
+.mode i{border-radius:5px;display:grid;place-items:center;font-style:normal;font-size:.8rem;line-height:1;color:var(--accent-ink)}
+.mode[aria-pressed="true"] i{border:2px solid var(--accent);background:var(--accent)}
 .btn{font:inherit;font-weight:700;font-size:1.05rem;padding:14px 18px;border-radius:12px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer;width:100%}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .btn.gold{background:var(--gold);color:var(--gold-ink)}
@@ -147,6 +150,14 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
         </div>
         <p class="muted" style="margin-top:8px">Not sure? Ask your teacher.</p>
       </div>
+      <div id="modeBox" hidden>
+        <label id="modelbl">I'm attending</label>
+        <div class="progs modes" role="group" aria-labelledby="modelbl">
+          <button type="button" class="prog mode" data-m="F2F" aria-pressed="false"><i></i>F2F</button>
+          <button type="button" class="prog mode" data-m="Online" aria-pressed="false"><i></i>Online</button>
+        </div>
+        <p class="muted" style="margin-top:8px">Choose one or both.</p>
+      </div>
       <p class="err" id="startErr" hidden></p>
       <button class="btn" id="go" type="button">Start</button>
     </div>
@@ -205,6 +216,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
       <div class="ticks" id="bTicks"></div>
       <dl>
         <dt>Program</dt><dd id="bProg"></dd>
+        <dt id="bModeL">Attending</dt><dd id="bMode"></dd>
         <dt>Class</dt><dd id="bClass"></dd>
         <dt>Finished</dt><dd id="bDate"></dd>
       </dl>
@@ -339,13 +351,19 @@ function show(id){["start","home","quiz","secDone","badgeView"].forEach(s=>$(s).
 function steps(el,total,on){el.innerHTML=Array.from({length:total},(_,k)=>`<i class="${k<on?"on":""}"></i>`).join("")}
 
 // start
-document.querySelectorAll(".prog").forEach(b=>b.addEventListener("click",()=>{S.prog=b.dataset.p;markProg()}));
-function markProg(){document.querySelectorAll(".prog").forEach(x=>x.setAttribute("aria-pressed",x.dataset.p===S.prog?"true":"false"))}
+document.querySelectorAll("[data-p]").forEach(b=>b.addEventListener("click",()=>{S.prog=b.dataset.p;markProg();$("startErr").hidden=true}));
+document.querySelectorAll("[data-m]").forEach(b=>b.addEventListener("click",()=>{const m=b.dataset.m;S.mode=S.mode||[];S.mode=S.mode.includes(m)?S.mode.filter(x=>x!==m):["F2F","Online"].filter(x=>x===m||S.mode.includes(x));markMode();$("startErr").hidden=true}));
+const needsMode=()=>S.prog==="AMEP"||S.prog==="SEE";
+const modeText=()=>(S.mode||[]).join(" & ");
+function markMode(){document.querySelectorAll("[data-m]").forEach(x=>{const on=(S.mode||[]).includes(x.dataset.m);x.setAttribute("aria-pressed",on?"true":"false");x.querySelector("i").textContent=on?"✓":""})}
+function markProg(){document.querySelectorAll("[data-p]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.p===S.prog?"true":"false"));$("modeBox").hidden=!needsMode();markMode()}
 $("go").addEventListener("click",()=>{
   const n=$("name").value.trim(),c=$("cls").value.trim(),e=$("startErr");
   if(!n){e.textContent="Please write your full name.";e.hidden=false;$("name").focus();return}
   if(!c){e.textContent="Please write your class or teacher's name.";e.hidden=false;$("cls").focus();return}
   if(!S.prog){e.textContent="Please choose AMEP, SEE or ESOL.";e.hidden=false;return}
+  if(needsMode()&&!(S.mode||[]).length){e.textContent="Please choose F2F, Online or both.";e.hidden=false;return}
+  if(!needsMode())S.mode=[];
   e.hidden=true;
   if(S.name&&S._lastProg&&S.prog!==S._lastProg){S.passed=[];S.finishedAt=null}
   S.name=n;S.cls=c;S._lastProg=S.prog;S.cur=null;save();renderHome();show("home");
@@ -354,7 +372,7 @@ $("edit").addEventListener("click",()=>{$("name").value=S.name;$("cls").value=S.
 
 // journey
 function renderHome(){
-  $("hName").textContent=S.name;$("hProg").textContent=S.prog+" · "+S.cls;
+  $("hName").textContent=S.name;$("hProg").textContent=[S.prog,modeText(),S.cls].filter(Boolean).join(" · ");
   const done=S.passed.length, all=done===N;
   steps($("hSteps"),N,done);
   $("hCount").textContent=all?`All ${N} parts passed. Your badge is ready!`:`${done} of ${N} parts passed. Pass all ${N} to get your badge.`;
@@ -435,6 +453,7 @@ $("bHome").addEventListener("click",()=>{renderHome();show("home")});
 (function(){let d="";const n=16;for(let k=0;k<n*2;k++){const r=k%2?56:66,a=Math.PI*k/n;d+=(k?"L":"M")+(r*Math.cos(a)).toFixed(1)+" "+(r*Math.sin(a)).toFixed(1)}$("rosette").setAttribute("d",d+"Z")})();
 function renderBadge(){
   $("bName").textContent=S.name;$("bProg").textContent=S.prog;$("bClass").textContent=S.cls;
+  const mt=modeText();$("bMode").textContent=mt;$("bMode").hidden=$("bModeL").hidden=!mt;
   const d=new Date(S.finishedAt||Date.now());
   $("bDate").textContent=d.toLocaleString("en-AU",{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit"});
   $("bTicks").innerHTML=SECTIONS.map((_,i)=>`<span>${i+1}</span>`).join("");
