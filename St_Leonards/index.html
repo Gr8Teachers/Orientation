@@ -275,8 +275,8 @@ const SECTIONS = [
  {title:"General class orientation", sub:"Online classes, tidy spaces, parking", qs:[
   {p:["all"],online:true,q:"What do you need for an online class?",o:["A device with internet, and earphones","Nothing","Only a pen"],why:"For online classes, use a device with internet and bring your own earphones."},
   {p:["all"],online:true,q:"In an online class, when should your microphone be on?",o:["Only when you need to speak","All the time","Never, even when the teacher asks"],why:"Keep your microphone on mute unless you need to speak. Turn your camera or microphone on when asked."},
-  {p:["all"],q:"You finish lunch in the tearoom. What do you do?",o:["Clean up and put rubbish in the bin","Leave it for the cleaners","Leave it on the table"],why:"Keep the toilets, tearooms and classrooms tidy. Do not litter on or around campus."},
-  {p:["all"],q:"You need student parking. What do you do first?",o:["Tell your teacher","Park in the staff car park","Park anywhere you like"],why:"Tell your teacher if you need parking. Swipe your TAFE card to enter. Never park in staff car parks."}
+  {p:["all"],campus:true,q:"You finish lunch in the tearoom. What do you do?",o:["Clean up and put rubbish in the bin","Leave it for the cleaners","Leave it on the table"],why:"Keep the toilets, tearooms and classrooms tidy. Do not litter on or around campus."},
+  {p:["all"],campus:true,q:"You need student parking. What do you do first?",o:["Tell your teacher","Park in the staff car park","Park anywhere you like"],why:"Tell your teacher if you need parking. Swipe your TAFE card to enter. Never park in staff car parks."}
  ]},
  {title:"General student information", sub:"Rights, responsibilities and complaints", qs:[
   {p:["all"],q:"What is true about respect at TAFE NSW?",o:["You must respect everyone, and everyone must respect you","Only teachers need to be respectful","Respect is not important"],why:"Treat all staff, students and the public with respect. You also have the right to be treated with respect."},
@@ -285,25 +285,25 @@ const SECTIONS = [
   {p:["all"],q:"Which one is a right you have as a TAFE NSW student?",o:["To learn in a safe place and be treated fairly","To pass without doing assessments","To use your phone in exams"],why:"You have the right to a safe learning environment and to be treated fairly and with respect. Read more in the TAFE NSW Student Guide."},
   {p:["all"],q:"Which one is a responsibility you have as a TAFE NSW student?",o:["Attend class and follow your teacher's instructions","Come to class only when you want","Do your classmates' assessments for them"],why:"Your responsibilities include attending class, taking part, and following your teacher's instructions."},
   {p:["all"],q:"Can you use rude or offensive language at TAFE?",o:["No, never","Yes, if you are angry","Yes, in your own language"],why:"Do not use offensive language. Treat everyone with respect, fairness and courtesy."},
-  {p:["all"],q:"Can you smoke anywhere on campus?",o:["No. Never smoke in non-smoking areas","Yes, anywhere","Yes, in the classroom at break time"],why:"Do not smoke in any non-smoking area on campus."},
+  {p:["all"],campus:true,q:"Can you smoke anywhere on campus?",o:["No. Never smoke in non-smoking areas","Yes, anywhere","Yes, in the classroom at break time"],why:"Do not smoke in any non-smoking area on campus."},
   {p:["all"],q:"Someone is bullying or harassing you at TAFE. What do you do?",o:["Tell your teacher or TAFE staff. You can talk in private","Say nothing","Bully them back"],why:"Bullying, discrimination, harassment and violence are against TAFE NSW rules and the law. Tell your teacher or staff. You can speak in private."},
   {p:["all"],q:"What can happen if a student harasses people, damages property or cheats?",o:["They may be penalised by TAFE NSW","Nothing happens","They get a prize"],why:"You may be penalised if you interrupt class, harass people, damage property or cheat in assessments."},
   {p:["all"],q:"You are not happy with your class or your study. What do you do?",o:["Speak to your teacher first. You can ask for an interpreter","Keep quiet","Stop coming to class"],why:"It is important to tell us. Always speak to your teacher first. You can ask for an interpreter."}
  ]},
- {title:"On St Leonards campus", sub:"Map, Opal, parking, IT help", qs:[
+ {campus:true,title:"On St Leonards campus", sub:"Map, Opal, parking, IT help", qs:[
   {p:["all"],q:"You need help with your Opal card or student parking. Who do you ask?",o:["Your teacher","The canteen staff","Security"],why:"Ask your teacher for help with your Opal card or student parking."},
   {p:["all"],q:"Where is the library?",o:["Building Q, ground floor","Building F","Building P"],why:"The library is on the ground floor of Building Q."},
   {p:["AMEP","SEE"],q:"Where are the AMEP / SEE classes?",o:["Building P","Building F","Building Q"],why:"AMEP, SEE and ESOL are in Building P."},
   {p:["ESOL"],q:"Where are the ESOL classes?",o:["Building P","Building F","Building Q"],why:"ESOL is in Building P."},
   {p:["all"],q:"You cannot log in to your TAFE account or the Wi-Fi. What do you do first?",o:["Ask your teacher for help","Use a friend's password","Give up"],why:"Ask your teacher first. Never share or use someone else's password."}
  ]},
- {title:"Emergency", sub:"000, evacuation, lockdown, SafeZone", qs:[
+ {campus:true,title:"Emergency", sub:"000, evacuation, lockdown, SafeZone", qs:[
   {p:["all"],q:"There is danger on campus right now. What number do you call?",o:["000 (Triple Zero)","131 601","Your friend"],why:"Call Triple Zero (000) if there is immediate danger."},
   {p:["all"],q:"The building must be evacuated. What do you do?",o:["Walk to the assembly area. Do not use the lifts","Take the lift down quickly","Run out of the building"],why:"Do not run. Do not use lifts. Go to the assembly area. Do not go back in until you are told."},
   {p:["all"],q:"There is a lockdown. What do you do?",o:["Lock the door, stay out of sight, keep quiet, phone off","Go outside to look","Call your friends on speaker"],why:"Lock doors and windows, close blinds, lights off, stay out of sight, phone off, keep quiet and wait."},
   {p:["all"],q:"Which free app can you use to contact TAFE NSW Security?",o:["SafeZone","Opal Travel","WhatsApp"],why:"SafeZone connects you with the TAFE NSW Security Control Room."},
  ]},
- {title:"Campus safety", sub:"Hazards, injuries, safe spaces", qs:[
+ {campus:true,title:"Campus safety", sub:"Hazards, injuries, safe spaces", qs:[
   {p:["all"],q:"You see a broken chair or a wet floor. What do you do?",o:["Tell your teacher or TAFE staff","Ignore it","Take a photo and post it"],why:"Report safety concerns, hazards and injuries to your teacher or TAFE staff."},
   {p:["all"],q:"You hurt yourself on campus. What do you do?",o:["Tell your teacher or TAFE staff","Go home and say nothing","Wait until next week"],why:"Report injuries, illness and incidents to your teacher or TAFE staff."},
   {p:["all"],q:"You want to go into a workshop or practical room. What do you do first?",o:["Ask before you go in","Just walk in","Go in when nobody is there"],why:"Always ask before entering workshops or practical spaces."},
@@ -335,7 +335,7 @@ const SECTIONS = [
   {p:["all"],q:"You get your enrolment SMS. When do you complete your enrolment?",o:["As soon as possible","At the end of the term","Never"],why:"Complete your enrolment as soon as possible after you get the SMS."},
   {p:["all"],q:"What do you need to have ready to enrol?",o:["Your personal information, like your email, address and visa subclass","Your bank PIN","Nothing"],why:"Have your personal information ready: for example, your email, address and visa subclass. Never share your bank PIN."},
   {p:["all"],q:"You need help with your enrolment. What can you do?",o:["Ask your teacher or a support person, like family or a case worker","Ask a stranger to enrol for you with your password","Do not enrol"],why:"Ask your teacher, or a support person like a family member, case worker or friend."},
-  {p:["AMEP","SEE"],q:"When and where are the Enrolment Drop-in Sessions?",o:["Monday to Friday, 2:30pm to 3:30pm, Building B, Level 2, B2.12","Saturday at 9am in the canteen","Sunday at the library"],why:"Enrolment Drop-in Sessions: Monday to Friday, 2:30pm to 3:30pm, Building B, Level 2, room B2.12."}
+  {p:["AMEP","SEE"],campus:true,q:"When and where are the Enrolment Drop-in Sessions?",o:["Monday to Friday, 2:30pm to 3:30pm, Building B, Level 2, B2.12","Saturday at 9am in the canteen","Sunday at the library"],why:"Enrolment Drop-in Sessions: Monday to Friday, 2:30pm to 3:30pm, Building B, Level 2, room B2.12."}
  ]}
 ];
 
@@ -344,9 +344,15 @@ const $=id=>document.getElementById(id);
 let S={name:"",cls:"",prog:"",passed:[],cur:null,finishedAt:null};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&typeof s==="object")S={...S,...s}}catch(e){}}
-const qsFor=si=>SECTIONS[si].qs.filter(q=>(q.p.includes("all")||q.p.includes(S.prog))&&!(q.online&&(S.prog==="AMEP"||S.prog==="SEE")&&!(S.mode||[]).includes("Online")));
+const hasMode=()=>S.prog==="AMEP"||S.prog==="SEE";
+const noOnline=()=>hasMode()&&!(S.mode||[]).includes("Online");
+const onlineOnly=()=>hasMode()&&(S.mode||[]).length===1&&S.mode[0]==="Online";
+const qsFor=si=>SECTIONS[si].campus&&onlineOnly()?[]:SECTIONS[si].qs.filter(q=>(q.p.includes("all")||q.p.includes(S.prog))&&!(q.online&&noOnline())&&!(q.campus&&onlineOnly()));
+const act=()=>SECTIONS.map((_,i)=>i).filter(i=>qsFor(i).length>0);
+const doneCount=()=>act().filter(i=>S.passed.includes(i)).length;
+const allDone=()=>doneCount()===act().length;
+const nextAct=()=>{const k=act().find(i=>!S.passed.includes(i));return k===undefined?-1:k};
 const shuffle=n=>{const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const N=SECTIONS.length;
 function show(id){["start","home","quiz","secDone","badgeView"].forEach(s=>$(s).hidden=s!==id);window.scrollTo(0,0)}
 function steps(el,total,on){el.innerHTML=Array.from({length:total},(_,k)=>`<i class="${k<on?"on":""}"></i>`).join("")}
 
@@ -373,18 +379,19 @@ $("edit").addEventListener("click",()=>{$("name").value=S.name;$("cls").value=S.
 // journey
 function renderHome(){
   $("hName").textContent=S.name;$("hProg").textContent=[S.prog,modeText(),S.cls].filter(Boolean).join(" · ");
-  const done=S.passed.length, all=done===N;
+  const A=act(), N=A.length, done=doneCount(), all=done===N;
   steps($("hSteps"),N,done);
   $("hCount").textContent=all?`All ${N} parts passed. Your badge is ready!`:`${done} of ${N} parts passed. Pass all ${N} to get your badge.`;
-  const nextSi=SECTIONS.findIndex((_,k)=>!S.passed.includes(k));
+  const nextSi=nextAct();
   const ol=$("secs");ol.innerHTML="";
-  SECTIONS.forEach((s,i)=>{
+  A.forEach((i,idx)=>{
+    const s=SECTIONS[i];
     const ok=S.passed.includes(i), nx=i===nextSi;
-    const segDone=ok&&(i===N-1?all:S.passed.includes(i+1));
+    const segDone=ok&&(idx===N-1?all:S.passed.includes(A[idx+1]));
     const li=document.createElement("li");li.className="stn"+(ok?" ok":nx?" now":"")+(segDone?" seg":"");
     li.innerHTML=`<span class="dot" aria-hidden="true">${ok?"✓":""}</span><button type="button" id="sec-${i}"><span class="name"></span><span class="st">${ok?"Passed":nx?"Next · "+qsFor(i).length+" questions":qsFor(i).length+" questions"}</span></button>`;
     li.querySelector(".name").textContent=s.title;
-    li.querySelector("button").setAttribute("aria-label",`Part ${i+1}: ${s.title}. ${ok?"Passed":qsFor(i).length+" questions"}`);
+    li.querySelector("button").setAttribute("aria-label",`Part ${idx+1}: ${s.title}. ${ok?"Passed":qsFor(i).length+" questions"}`);
     li.querySelector("button").addEventListener("click",()=>startSec(i));
     ol.appendChild(li);
   });
@@ -434,12 +441,12 @@ function nextQ(){
   const qs=qsFor(S.cur.si);
   if(S.cur.i<qs.length-1){S.cur.i++;save();renderQ();return}
   const si=S.cur.si;if(!S.passed.includes(si))S.passed.push(si);S.cur=null;
-  const all=S.passed.length===N;
+  const N=act().length, all=allDone();
   if(all&&!S.finishedAt)S.finishedAt=new Date().toISOString();
   save();
   $("sdTitle").textContent=`${SECTIONS[si].title}: passed!`;
-  $("sdText").textContent=all?`You passed all ${N} parts. Well done!`:`All correct. ${N-S.passed.length} parts to go.`;
-  const nextSi=SECTIONS.findIndex((_,k)=>!S.passed.includes(k));
+  $("sdText").textContent=all?`You passed all ${N} parts. Well done!`:`All correct. ${N-doneCount()} parts to go.`;
+  const nextSi=nextAct();
   const nb=$("sdNext");
   if(all){nb.textContent="See my badge";nb.className="btn gold";nb.onclick=()=>{renderBadge();show("badgeView")}}
   else{nb.textContent=`Next stop: ${SECTIONS[nextSi].title}`;nb.className="btn";nb.onclick=()=>startSec(nextSi)}
@@ -456,7 +463,8 @@ function renderBadge(){
   const mt=modeText();$("bMode").textContent=mt;$("bMode").hidden=$("bModeL").hidden=!mt;
   const d=new Date(S.finishedAt||Date.now());
   $("bDate").textContent=d.toLocaleString("en-AU",{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit"});
-  $("bTicks").innerHTML=SECTIONS.map((_,i)=>`<span>${i+1}</span>`).join("");
+  const N=act().length;
+  $("bTicks").innerHTML=Array.from({length:N},(_,i)=>`<span>${i+1}</span>`).join("");
   $("bTicks").setAttribute("aria-label",`All ${N} parts passed`);
   requestAnimationFrame(setupSig);
 }
@@ -486,7 +494,7 @@ function setupSig(){
 load();markProg();
 if(S.name&&S.prog){
   if(S.cur&&S.cur.order){renderQ();show("quiz")}
-  else if(S.passed.length===N&&S.finishedAt){renderBadge();show("badgeView")}
+  else if(allDone()&&S.finishedAt){renderBadge();show("badgeView")}
   else{renderHome();show("home")}
 }else show("start");
 </script>
