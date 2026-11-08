@@ -116,6 +116,12 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 .badge dl{margin:0;display:grid;grid-template-columns:auto auto;gap:4px 14px;text-align:left;font-size:.95rem}
 .badge dt{color:var(--muted)}
 .badge dd{margin:0;font-weight:700;overflow-wrap:anywhere;min-width:0}
+.sig{width:100%;max-width:360px;display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.sig .decl{font-size:.95rem;text-align:left;font-weight:700}
+.sig canvas{width:100%;height:120px;display:block;border:2px dashed var(--line-strong);border-radius:12px;background:var(--bg);touch-action:none;cursor:crosshair}
+.sig.signed canvas{border-style:solid;border-color:var(--line)}
+.sig .sigrow{display:flex;justify-content:space-between;gap:8px;font-size:.82rem;color:var(--muted)}
+.sig.signed #sigHint{color:var(--ok);font-weight:700}
 </style>
 </head>
 <body>
@@ -181,7 +187,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 
   <!-- BADGE -->
   <section id="badgeView" hidden>
-    <div class="shot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8.5 6l1.5-2.5h4L15.5 6"/></svg><span>Take a screenshot of your badge and send it to your teacher.</span></div>
+    <div class="shot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8.5 6l1.5-2.5h4L15.5 6"/></svg><span>Sign in the box, then take a screenshot of your badge and send it to your teacher.</span></div>
     <div class="badge">
       <svg class="medal" viewBox="0 0 160 190" role="img" aria-label="Gold medal with a tick">
         <path d="M52 108 L34 182 L58 168 L70 190 L82 118 Z" fill="var(--accent)"/>
@@ -202,7 +208,13 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
         <dt>Class</dt><dd id="bClass"></dd>
         <dt>Finished</dt><dd id="bDate"></dd>
       </dl>
+      <div class="sig" id="sigWrap">
+        <p class="decl">I confirm I have completed my orientation.</p>
+        <canvas id="sigPad" role="img" aria-label="Signature box. Sign with your finger or mouse."></canvas>
+        <div class="sigrow"><span>Student signature</span><span id="sigHint">Sign in the box</span></div>
+      </div>
     </div>
+    <button class="link" id="sigClear" type="button" style="align-self:center">Clear my signature</button>
     <button class="link" id="bHome" type="button" style="align-self:center">Back to my journey</button>
   </section>
 
@@ -427,7 +439,29 @@ function renderBadge(){
   $("bDate").textContent=d.toLocaleString("en-AU",{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit"});
   $("bTicks").innerHTML=SECTIONS.map((_,i)=>`<span>${i+1}</span>`).join("");
   $("bTicks").setAttribute("aria-label",`All ${N} parts passed`);
+  requestAnimationFrame(setupSig);
 }
+// signature pad
+let sigCtx=null,drawing=false,last=null;
+function setupSig(){
+  const c=$("sigPad"),r=c.getBoundingClientRect();if(!r.width)return;
+  const dpr=window.devicePixelRatio||1;c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr);
+  sigCtx=c.getContext("2d");sigCtx.setTransform(dpr,0,0,dpr,0,0);
+  sigCtx.lineWidth=2.6;sigCtx.lineCap="round";sigCtx.lineJoin="round";
+  sigCtx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#1d2433";
+  const signed=!!S.sig;$("sigWrap").classList.toggle("signed",signed);$("sigHint").textContent=signed?"Signed ✓":"Sign in the box";
+  if(signed){const img=new Image();img.onload=()=>sigCtx.drawImage(img,0,0,r.width,r.height);img.src=S.sig}
+}
+(function(){
+  const c=$("sigPad");
+  const pt=e=>{const r=c.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
+  c.addEventListener("pointerdown",e=>{if(!sigCtx)return;drawing=true;last=pt(e);try{c.setPointerCapture(e.pointerId)}catch(_){};sigCtx.beginPath();sigCtx.arc(last[0],last[1],1.2,0,Math.PI*2);sigCtx.fillStyle=sigCtx.strokeStyle;sigCtx.fill();e.preventDefault()});
+  c.addEventListener("pointermove",e=>{if(!drawing)return;const p=pt(e);sigCtx.beginPath();sigCtx.moveTo(last[0],last[1]);sigCtx.lineTo(p[0],p[1]);sigCtx.stroke();last=p;e.preventDefault()});
+  const end=()=>{if(!drawing)return;drawing=false;S.sig=c.toDataURL("image/png");save();$("sigWrap").classList.add("signed");$("sigHint").textContent="Signed ✓"};
+  c.addEventListener("pointerup",end);c.addEventListener("pointercancel",end);c.addEventListener("pointerleave",end);
+  $("sigClear").addEventListener("click",()=>{S.sig=null;save();setupSig()});
+  window.addEventListener("resize",()=>{if(!$("badgeView").hidden)setupSig()});
+})();
 
 // resume
 load();markProg();
