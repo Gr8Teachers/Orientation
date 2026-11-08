@@ -244,7 +244,8 @@ const SECTIONS = [
   {p:["AMEP"],q:"You are away for more than 3 months. What do you need before you come back?",o:["An interview with an AMEP Pathway Guidance Officer (PGO)","Nothing, just come to class","A new Opal card"],why:"AMEP students away for more than 3 months need an interview with a PGO first."},
   {p:["SEE"],q:"You are away for more than 3 months. What do you need before you come back?",o:["A new registration form and a new assessment","Nothing, just come to class","A letter from a friend"],why:"SEE students away for more than 3 months fill in a new registration form and do a new assessment."},
   {p:["ESOL"],q:"What happens if you miss a lot of classes?",o:["You miss assessments and may not get your certificate","Nothing happens","You get extra holidays"],why:"If you are away, you miss scheduled assessments and may not complete your certificate."},
-  {p:["AMEP"],q:"You are going overseas. What do you do?",o:["Tell your teacher. You cannot study AMEP from overseas","Join your online class from overseas","Do nothing"],why:"Tell your teacher. You must not attend AMEP study from overseas."}
+  {p:["AMEP"],q:"You are going overseas. What do you do?",o:["Tell your teacher. You cannot study AMEP from overseas","Join your online class from overseas","Do nothing"],why:"Tell your teacher. You must not attend AMEP study from overseas."},
+  {p:["all"],q:"You have a cold or flu today. What do you do?",o:["Stay home and tell your teacher","Come to class anyway","Go to the library instead"],why:"If you feel unwell, stay home, avoid close contact with others, and tell your teacher."}
  ]},
  {title:"Classroom expectations", sub:"Being on time, taking part, face-to-face and online", qs:[
   {p:["all"],q:"Your class starts at 9:00. When should you arrive?",o:["Before 9:00, so you are ready on time","At 9:30","Any time before lunch"],why:"Attend all classes and arrive and leave on time."},
@@ -254,12 +255,8 @@ const SECTIONS = [
   {p:["all"],online:true,q:"In an online class, your teacher asks you to turn on your camera. What do you do?",o:["Turn your camera on","Leave the class","Ignore the teacher"],why:"In online classes, turn your camera or microphone on when your teacher asks."},
   {p:["all"],online:true,q:"What do you need for an online class?",o:["A device with internet, and earphones","Nothing","Only a pen"],why:"For online classes, use a device with internet and bring your own earphones."},
   {p:["all"],online:true,q:"In an online class, when should your microphone be on?",o:["Only when you need to speak","All the time","Never, even when the teacher asks"],why:"Keep your microphone on mute unless you need to speak. Turn your camera or microphone on when asked."},
-  {p:["all"],q:"You want to take a photo of a classmate. What do you do?",o:["Ask them first. Only take it if they say yes","Take it and post it online","Take it quickly so they do not see"],why:"Never photograph or record someone without their consent."}
- ]},
- {title:"Health safety", sub:"Staying home when sick, medical needs", qs:[
-  {p:["all"],q:"You have a cold or flu today. What do you do?",o:["Stay home and tell your teacher","Come to class anyway","Go to the library instead"],why:"If you feel unwell, stay home, avoid close contact with others, and tell your teacher."},
-  {p:["all"],q:"You start to feel very sick in class. What do you do?",o:["Tell your teacher","Say nothing","Leave without telling anyone"],why:"Tell your teacher if you are unwell or hurt."},
-  {p:["all"],campus:true,q:"You need medicine or medical equipment, for example an asthma puffer. What do you do?",o:["Bring it with you to TAFE","Leave it at home","Ask a classmate to keep it"],why:"Carry any medical equipment you need when you are on campus."}
+  {p:["all"],q:"You want to take a photo of a classmate. What do you do?",o:["Ask them first. Only take it if they say yes","Take it and post it online","Take it quickly so they do not see"],why:"Never photograph or record someone without their consent."},
+  {p:["all"],q:"You start to feel very sick in class. What do you do?",o:["Tell your teacher","Say nothing","Leave without telling anyone"],why:"Tell your teacher if you are unwell or hurt."}
  ]},
  {title:"Course and unit information", sub:"Your course, units and assessment guides", qs:[
   {p:["all"],q:"Where can you find information about your course?",o:["The course website. Scan the QR code in your orientation","The canteen","Facebook"],why:"Scan the QR code in your orientation slides to see the website for your course."},
@@ -290,13 +287,14 @@ const SECTIONS = [
   {p:["all"],q:"Someone is bullying or harassing you at TAFE. What do you do?",o:["Tell your teacher or TAFE staff. You can talk in private","Say nothing","Bully them back"],why:"Bullying, discrimination, harassment and violence are against TAFE NSW rules and the law. Tell your teacher or staff. You can speak in private."},
   {p:["all"],q:"What can happen if a student harasses people, damages property or cheats?",o:["They may be penalised by TAFE NSW","Nothing happens","They get a prize"],why:"You may be penalised if you interrupt class, harass people, damage property or cheat in assessments."}
  ]},
- {campus:true,title:"St Leonards campus", sub:"Map, Opal, parking, tidy spaces, hazards, injuries", qs:[
+ {campus:true,title:"St Leonards campus", sub:"Library, Opal, parking, tidy spaces, safety, medical needs", qs:[
   {p:["all"],q:"Where is the library?",o:["Building Q, ground floor","Building F","Building P"],why:"The library is on the ground floor of Building Q."},
   {p:["all"],q:"You need help with your Opal card. Who do you ask?",o:["Your teacher","The canteen staff","Security"],why:"Ask your teacher for help with your Opal card."},
   {p:["all"],q:"You need student parking. What do you do first?",o:["Tell your teacher","Park in the staff car park","Park anywhere you like"],why:"Tell your teacher if you need parking. Swipe your TAFE card to enter. Never park in staff car parks."},
   {p:["all"],q:"You finish lunch in the tearoom. What do you do?",o:["Clean up and put rubbish in the bin","Leave it for the cleaners","Leave it on the table"],why:"Keep the toilets, tearooms and classrooms tidy. Do not litter on or around campus."},
   {p:["all"],q:"You see a broken chair or a wet floor. What do you do?",o:["Tell your teacher or TAFE staff","Ignore it","Take a photo and post it"],why:"Report safety concerns, hazards and injuries to your teacher or TAFE staff."},
-  {p:["all"],q:"You hurt yourself on campus. What do you do?",o:["Tell your teacher or TAFE staff","Go home and say nothing","Wait until next week"],why:"Report injuries, illness and incidents to your teacher or TAFE staff."}
+  {p:["all"],q:"You hurt yourself on campus. What do you do?",o:["Tell your teacher or TAFE staff","Go home and say nothing","Wait until next week"],why:"Report injuries, illness and incidents to your teacher or TAFE staff."},
+  {p:["all"],q:"You need medicine or medical equipment, for example an asthma puffer. What do you do?",o:["Bring it with you to TAFE","Leave it at home","Ask a classmate to keep it"],why:"Carry any medical equipment you need when you are on campus."}
  ]},
  {campus:true,title:"Emergency", sub:"000, evacuation, lockdown, SafeZone", qs:[
   {p:["all"],q:"There is danger on campus right now. What number do you call?",o:["000 (Triple Zero)","131 601","Your friend"],why:"Call Triple Zero (000) if there is immediate danger."},
