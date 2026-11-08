@@ -4,7 +4,7 @@ End-of-orientation quizzes for AMEP, SEE and ESOL students, one folder per campu
 
 | Campus | Folder | Live link |
 |---|---|---|
-| St Leonards | `St_Leonards/` | https://gr8teachers.github.io/orientation/St_Leonards/ |
+| St Leonards | `St_Leonards/` | https://gr8teachers.github.io/Orientation/St_Leonards/ |
 
 Each quiz has one part per orientation section. Students must answer every question correctly, and when all parts are passed they see a badge with their name to screenshot for their teacher.
 
