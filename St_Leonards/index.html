@@ -337,7 +337,10 @@ const KEY="stl-orientation-quiz-v2";
 const $=id=>document.getElementById(id);
 let S={name:"",cls:"",prog:"",passed:[],cur:null,finishedAt:null};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&typeof s==="object")S={...S,...s}}catch(e){}}
+const EXPIRE_MS=7*24*60*60*1000; // saved progress is forgotten 7 days after the student first starts
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(!s||typeof s!=="object")return;
+  if(s.startedAt&&Date.now()-s.startedAt>EXPIRE_MS){localStorage.removeItem(KEY);return}
+  S={...S,...s};if(S.name&&!S.startedAt){S.startedAt=Date.now();save()}}catch(e){}}
 const hasMode=()=>S.prog==="AMEP"||S.prog==="SEE";
 const noOnline=()=>hasMode()&&!(S.mode||[]).includes("Online");
 const onlineOnly=()=>hasMode()&&(S.mode||[]).length===1&&S.mode[0]==="Online";
@@ -366,7 +369,7 @@ $("go").addEventListener("click",()=>{
   if(!needsMode())S.mode=[];
   e.hidden=true;
   if(S.name&&S._lastProg&&S.prog!==S._lastProg){S.passed=[];S.finishedAt=null}
-  S.name=n;S.cls=c;S._lastProg=S.prog;S.cur=null;save();renderHome();show("home");
+  S.name=n;S.cls=c;S._lastProg=S.prog;S.cur=null;if(!S.startedAt)S.startedAt=Date.now();save();renderHome();show("home");
 });
 $("edit").addEventListener("click",()=>{$("name").value=S.name;$("cls").value=S.cls;markProg();show("start")});
 
