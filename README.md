@@ -1,11 +1,12 @@
-# St Leonards Orientation Quiz
+# Orientation Quizzes
 
-End-of-orientation quiz for AMEP, SEE and ESOL students at St Leonards.
+End-of-orientation quizzes for AMEP, SEE and ESOL students, one folder per campus.
 
-- 14 parts, one quiz per orientation section
-- Students must answer every question correctly to pass each part
-- When all parts are passed, students see a badge with their name and screenshot it for their teacher
+| Campus | Folder | Live link |
+|---|---|---|
+| St Leonards | `St_Leonards/` | https://gr8teachers.github.io/orientation/St_Leonards/ |
 
-Live site: https://gr8teachers.github.io/orientation/
+Each quiz has one part per orientation section. Students must answer every question correctly, and when all parts are passed they see a badge with their name to screenshot for their teacher.
 
-To edit questions, change the `SECTIONS` list in `index.html`.
+To edit questions, change the `SECTIONS` list in the campus's `index.html`.
+To add a campus, add a folder with its own `index.html` and a link on the front page (`index.html`). Give each campus quiz its own storage key (`KEY` in the script) so progress doesn't mix between campuses.
