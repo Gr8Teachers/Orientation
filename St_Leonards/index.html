@@ -114,7 +114,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 .badge svg.medal{width:130px;height:auto;max-width:100%}
 .badge .bname{font-weight:700;font-size:clamp(1.7rem,7vw,2.4rem);line-height:1.1;overflow-wrap:anywhere}
 .badge .btitle{font-weight:700;font-size:1.15rem;color:var(--accent)}
-.badge .ticks{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;max-width:200px}
+.badge .ticks{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;max-width:230px}
 .badge .ticks span{width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:.72rem;font-weight:700}
 .badge dl{margin:0;display:grid;grid-template-columns:auto auto;gap:4px 14px;text-align:left;font-size:.95rem}
 .badge dt{color:var(--muted)}
@@ -267,10 +267,17 @@ const SECTIONS = [
   {p:["all"],q:"What does your Unit Assessment Guide tell you?",o:["How and when you will be assessed in your unit","Your bus timetable","Your teacher's phone number"],why:"Your Unit Assessment Guide tells you what you must do to pass the unit and when you will be assessed."},
   {p:["all"],q:"You do not know when your next assessment is. What do you do?",o:["Check your Unit Assessment Guide or ask your teacher","Guess","Wait and see"],why:"Check your Unit Assessment Guide, or ask your teacher."}
  ]},
- {title:"Student declaration", sub:"Assessment rules and your responsibilities", qs:[
+ {title:"Student declaration", sub:"Your rights, responsibilities and appeals", qs:[
   {p:["all"],q:"Where can you read about your rights and responsibilities as a TAFE NSW student?",o:["The TAFE NSW Student Guide","A newspaper","Your phone's settings"],why:"The TAFE NSW Student Guide explains your rights and responsibilities."},
-  {p:["all"],q:"Your assessment is hard. Can you copy a friend's answers or ask AI to write them?",o:["No. Do your own work and ask your teacher for help","Yes, if nobody sees","Yes, AI is always OK"],why:"Do your own honest work. Ask your teacher what use of AI is OK. Cheating can be penalised."},
   {p:["all"],q:"You think your assessment result is wrong. What can you do?",o:["Talk to your teacher. There is an appeals process","Nothing","Change the result yourself"],why:"You can explain your side, and an appeals process is available if you disagree."}
+ ]},
+ {title:"Academic integrity", sub:"Honest work, AI, cheating", qs:[
+  {p:["all"],q:"Your assessment is hard. Can you copy a friend's answers or ask AI to write them?",o:["No. Do your own work and ask your teacher for help","Yes, if nobody sees","Yes, AI is always OK"],why:"Do your own honest work. Ask your teacher what use of AI is OK. Cheating can be penalised."},
+  {p:["all"],q:"Can you use AI tools, like ChatGPT, in your assessments?",o:["Only if your teacher says it is OK, and only in the way they allow","Yes, always","Yes, to write all my answers"],why:"Ask your teacher what use of AI is acceptable before you use it."},
+  {p:["all"],q:"A friend asks to copy your assessment. What do you do?",o:["Say no. Sharing your answers is also cheating","Let them copy it","Send them a photo of it"],why:"Do your own honest work, and do not share your answers. Helping someone cheat is also cheating."},
+  {p:["all"],q:"You want to use words from a website in your work. What do you do?",o:["Use your own words, or say where the words came from","Copy and paste them","Say they are your own words"],why:"Use your own words. If you use someone else's words, say where they came from. Ask your teacher if you are not sure."},
+  {p:["all"],q:"Can you use your mobile phone for personal things in class or in an exam?",o:["No","Yes, any time","Yes, but only for social media"],why:"Do not use social media or phones for personal reasons in class or exams."},
+  {p:["all"],q:"What can happen if you cheat in an assessment?",o:["You may be penalised by TAFE NSW","Nothing","You get a higher mark"],why:"Cheating in assessments can be penalised. Read Every Student's Guide to Assessment to learn the rules."}
  ]},
  {title:"General class orientation", sub:"Online classes, tidy spaces, parking", qs:[
   {p:["all"],online:true,q:"What do you need for an online class?",o:["A device with internet, and earphones","Nothing","Only a pen"],why:"For online classes, use a device with internet and bring your own earphones."},
@@ -280,7 +287,6 @@ const SECTIONS = [
  ]},
  {title:"General student information", sub:"Rights, responsibilities and complaints", qs:[
   {p:["all"],q:"What is true about respect at TAFE NSW?",o:["You must respect everyone, and everyone must respect you","Only teachers need to be respectful","Respect is not important"],why:"Treat all staff, students and the public with respect. You also have the right to be treated with respect."},
-  {p:["all"],q:"Can you use your mobile phone for personal things in class or in an exam?",o:["No","Yes, any time","Yes, but only for social media"],why:"Do not use social media or phones for personal reasons in class or exams."},
   {p:["all"],q:"You want to take a photo of a classmate. What do you do?",o:["Ask them first. Only take it if they say yes","Take it and post it online","Take it quickly so they do not see"],why:"Never photograph or record someone without their consent."},
   {p:["all"],q:"Which one is a right you have as a TAFE NSW student?",o:["To learn in a safe place and be treated fairly","To pass without doing assessments","To use your phone in exams"],why:"You have the right to a safe learning environment and to be treated fairly and with respect. Read more in the TAFE NSW Student Guide."},
   {p:["all"],q:"Which one is a responsibility you have as a TAFE NSW student?",o:["Attend class and follow your teacher's instructions","Come to class only when you want","Do your classmates' assessments for them"],why:"Your responsibilities include attending class, taking part, and following your teacher's instructions."},
