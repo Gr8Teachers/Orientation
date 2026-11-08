@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<style>body{margin:0}img{max-width:100%}</style>
+<title>Campsie Orientation Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+<style>
+
+/* Layout: calm single column, like a clean official form; the sections screen is a journey line with stations */
+:root{
+  --bg:#ffffff; --panel:#f6f8fb; --ink:#1d2433; --muted:#6b7385; --line:#e3e7ef; --line-strong:#c9d0dc;
+  --accent:#1b2f6b; --accent-ink:#ffffff; --accent-soft:#eaeef8;
+  --ok:#16a34a; --ok-soft:#ecfdf3; --bad:#c2410c; --bad-soft:#fff4ec;
+  --gold:#f2b705; --gold-deep:#c48a00; --gold-ink:#2b2200;
+  --font:Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11151d; --panel:#171c26; --ink:#e6eaf2; --muted:#9aa3b5; --line:#2a3242; --line-strong:#3a4558;
+  --accent:#6b9bff; --accent-ink:#0b1220; --accent-soft:#1a2440;
+  --ok:#3ccf7a; --ok-soft:#14261c; --bad:#ff9a62; --bad-soft:#2d1d14;
+  --gold:#f2b705; --gold-deep:#d9a21a; --gold-ink:#2b2200; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11151d; --panel:#171c26; --ink:#e6eaf2; --muted:#9aa3b5; --line:#2a3242; --line-strong:#3a4558;
+  --accent:#6b9bff; --accent-ink:#0b1220; --accent-soft:#1a2440;
+  --ok:#3ccf7a; --ok-soft:#14261c; --bad:#ff9a62; --bad-soft:#2d1d14;
+  --gold:#f2b705; --gold-deep:#d9a21a; --gold-ink:#2b2200; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.5}
+.wrap{max-width:600px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{display:flex;flex-direction:column;gap:16px}
+h1,h2{margin:0;line-height:1.25}
+h1{font-size:1.7rem}
+#start .eyebrow{margin-bottom:10px}
+h2{font-size:1.35rem}
+p{margin:0}
+p,.fb span{text-align:justify;hyphens:auto}
+.pass p{text-align:center}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted);font-size:.92rem}
+.panel{border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;background:var(--bg)}
+label{font-weight:700;display:block;margin-bottom:6px;font-size:.95rem}
+input[type=text]{width:100%;font:inherit;padding:12px 14px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+input[type=text]:focus{outline:none;border-color:var(--accent)}
+.progs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.prog{font:inherit;font-weight:700;padding:12px 6px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.prog i{width:18px;height:18px;border-radius:50%;border:2px solid var(--line-strong);flex:none}
+.prog[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.prog[aria-pressed="true"] i{border:5px solid var(--accent)}
+.modes{grid-template-columns:repeat(2,1fr)}
+.mode i{border-radius:5px;display:grid;place-items:center;font-style:normal;font-size:.8rem;line-height:1;color:var(--accent-ink)}
+.mode[aria-pressed="true"] i{border:2px solid var(--accent);background:var(--accent)}
+.btn{font:inherit;font-weight:700;font-size:1.05rem;padding:14px 18px;border-radius:12px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer;width:100%}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.gold{background:var(--gold);color:var(--gold-ink)}
+.link{font:inherit;font-size:.95rem;background:none;border:0;color:var(--accent);font-weight:700;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.err{color:var(--bad);font-weight:700}
+.steps{display:flex;gap:4px}
+.steps i{flex:1;height:6px;border-radius:6px;background:var(--line)}
+.steps i.on{background:var(--accent)}
+.who{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.who b{font-size:1.25rem;display:block}
+
+/* Journey line */
+.journey{list-style:none;margin:0;padding:0}
+.stn{position:relative;padding-left:44px}
+.stn::before{content:"";position:absolute;left:15px;top:22px;bottom:-22px;width:6px;background:var(--line);border-radius:0}
+.stn:last-child::before{display:none}
+.stn.seg::before{background:var(--accent)}
+.stn button{width:100%;font:inherit;color:inherit;background:none;border:0;text-align:left;cursor:pointer;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;min-height:44px}
+.stn button:hover:not(:disabled){background:var(--panel)}
+.stn .dot{position:absolute;left:6px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--bg);border:4px solid var(--line-strong);display:grid;place-items:center;font-size:.7rem;font-weight:700;color:var(--accent-ink);z-index:1}
+.stn .name{flex:1;min-width:0;font-weight:700;font-size:.98rem}
+.stn .st{flex:none;font-size:.8rem;color:var(--muted)}
+.stn.ok .dot{background:var(--accent);border-color:var(--accent)}
+.stn.ok .st{color:var(--accent);font-weight:700}
+.stn.now .dot{border-color:var(--accent);width:28px;height:28px;left:4px;box-shadow:0 0 0 5px var(--accent-soft)}
+.stn.now button{background:var(--accent-soft)}
+.stn.now .name{color:var(--accent)}
+.stn.now .st{color:var(--accent);font-weight:700}
+.stn.end .dot{width:32px;height:32px;left:2px;border:0;background:none}
+.stn.end button:disabled{cursor:default}
+.stn.end.ready button{background:var(--accent-soft)}
+
+/* Question */
+.qlabel{display:flex;justify-content:space-between;gap:12px}
+.ans{display:flex;flex-direction:column;gap:10px}
+.a{font:inherit;color:var(--ink);text-align:left;background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center;cursor:pointer}
+.a i{width:22px;height:22px;border-radius:50%;border:2px solid var(--line-strong);flex:none;display:grid;place-items:center;font-style:normal;font-size:.8rem;font-weight:700}
+.a:hover:not(:disabled){border-color:var(--accent)}
+.a.sel{border-color:var(--accent);background:var(--accent-soft)}
+.a.sel i{border:6px solid var(--accent)}
+.a.right{border-color:var(--ok);background:var(--ok-soft)}
+.a.right i{border:0;background:var(--ok);color:#fff}
+.a.wrong{border-color:var(--line);background:var(--panel);color:var(--muted);text-decoration:line-through;cursor:not-allowed}
+.a.wrong i{border-color:var(--bad);color:var(--bad)}
+.fb{border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:.95rem}
+.fb.yes{background:var(--ok-soft);border:1px solid var(--ok)}
+.fb.yes b{color:var(--ok)}
+.fb.no{background:var(--bad-soft);border:1px solid var(--bad)}
+.fb.no b{color:var(--bad)}
+
+.pass{align-items:center;text-align:center}
+.pass .tick{width:84px;height:84px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center}
+
+/* Badge */
+.shot{background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:center;font-weight:700;color:var(--ink)}
+.shot svg{color:var(--accent);flex:none}
+.badge{border:2px solid var(--line);border-radius:20px;padding:28px 18px 22px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;background:var(--bg)}
+.badge svg.medal{width:130px;height:auto;max-width:100%}
+.badge .bname{font-weight:700;font-size:clamp(1.7rem,7vw,2.4rem);line-height:1.1;overflow-wrap:anywhere}
+.badge .btitle{font-weight:700;font-size:1.15rem;color:var(--accent)}
+.badge .ticks{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;max-width:230px}
+.badge .ticks span{width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:.72rem;font-weight:700}
+.badge dl{margin:0;display:grid;grid-template-columns:auto auto;gap:4px 14px;text-align:left;font-size:.95rem}
+.badge dt{color:var(--muted)}
+.badge dd{margin:0;font-weight:700;overflow-wrap:anywhere;min-width:0}
+.sig{width:100%;max-width:360px;display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.sig .decl{font-size:.95rem;text-align:left;font-weight:700}
+.sig canvas{width:100%;height:120px;display:block;border:2px dashed var(--line-strong);border-radius:12px;background:var(--bg);touch-action:none;cursor:crosshair}
+.sig.signed canvas{border-style:solid;border-color:var(--line)}
+.sig .sigrow{display:flex;justify-content:space-between;gap:8px;font-size:.82rem;color:var(--muted)}
+.sig.signed #sigHint{color:var(--ok);font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="wrap" lang="en">
+
+  <!-- START -->
+  <section id="start">
+    <div>
+      <p class="eyebrow">Campsie · AMEP</p>
+      <h1>Orientation quiz</h1>
+    </div>
+    <p>Please complete this Orientation Quiz. To receive your badge at the end, you must answer every question correctly. You have unlimited attempts.</p>
+    <div class="panel">
+      <div><label for="name">Your full name</label><input id="name" type="text" autocomplete="name" placeholder="e.g. Maria Lopez"></div>
+      <div><label for="cls">Your class or teacher's name</label><input id="cls" type="text" placeholder="e.g. EAL 2 Mon & Tue, Ms Chen"></div>
+      <div id="modeBox" hidden>
+        <label id="modelbl">I'm attending</label>
+        <div class="progs modes" role="group" aria-labelledby="modelbl">
+          <button type="button" class="prog mode" data-m="F2F" aria-pressed="false"><i></i>F2F</button>
+          <button type="button" class="prog mode" data-m="Online" aria-pressed="false"><i></i>Online</button>
+        </div>
+        <p class="muted" style="margin-top:8px">Choose one or both.</p>
+      </div>
+      <p class="err" id="startErr" hidden></p>
+      <button class="btn" id="go" type="button">Start</button>
+    </div>
+  </section>
+
+  <!-- HOME: journey -->
+  <section id="home" hidden>
+    <div class="who">
+      <div><span class="muted">Orientation quiz</span><b id="hName"></b><span class="muted" id="hProg"></span></div>
+      <button class="link" id="edit" type="button">Change my details</button>
+    </div>
+    <div class="steps" id="hSteps" aria-hidden="true"></div>
+    <p class="muted" id="hCount"></p>
+    <ol class="journey" id="secs" aria-label="Orientation parts"></ol>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" hidden>
+    <div class="steps" id="qSteps" aria-hidden="true"></div>
+    <div class="qlabel"><span class="eyebrow" id="qSec"></span><span class="muted" id="qCount"></span></div>
+    <h2 id="qText"></h2>
+    <div class="ans" id="opts" role="radiogroup" aria-labelledby="qText"></div>
+    <div id="fb" class="fb" hidden aria-live="polite"></div>
+    <button class="btn" id="check" type="button" disabled>Check</button>
+    <button class="link" id="back" type="button" style="align-self:flex-start">Back to my journey</button>
+  </section>
+
+  <!-- SECTION PASSED -->
+  <section id="secDone" hidden>
+    <div class="panel pass">
+      <div class="tick" aria-hidden="true"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h2 id="sdTitle"></h2>
+      <p id="sdText"></p>
+      <button class="btn" id="sdNext" type="button"></button>
+      <button class="link" id="sdHome" type="button">Back to my journey</button>
+    </div>
+  </section>
+
+  <!-- BADGE -->
+  <section id="badgeView" hidden>
+    <div class="shot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8.5 6l1.5-2.5h4L15.5 6"/></svg><span>Sign in the box, then take a screenshot of your badge and send it to your teacher.</span></div>
+    <div class="badge">
+      <svg class="medal" viewBox="0 0 160 190" role="img" aria-label="Gold medal with a tick">
+        <path d="M52 108 L34 182 L58 168 L70 190 L82 118 Z" fill="var(--accent)"/>
+        <path d="M108 108 L126 182 L102 168 L90 190 L78 118 Z" fill="var(--accent)"/>
+        <g transform="translate(80 72)">
+          <path id="rosette" fill="var(--gold-deep)" d=""/>
+          <circle r="50" fill="var(--gold)"/>
+          <circle r="42" fill="none" stroke="var(--gold-deep)" stroke-width="3"/>
+          <path d="M-20 1 L-6 15 L22 -14" fill="none" stroke="var(--gold-ink)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <span class="eyebrow" style="color:var(--muted)">Campsie AMEP Orientation</span>
+      <div class="bname" id="bName"></div>
+      <div class="btitle">Orientation Complete</div>
+      <div class="ticks" id="bTicks"></div>
+      <dl>
+        <dt>Program</dt><dd id="bProg"></dd>
+        <dt id="bModeL">Attending</dt><dd id="bMode"></dd>
+        <dt>Class</dt><dd id="bClass"></dd>
+        <dt>Finished</dt><dd id="bDate"></dd>
+      </dl>
+      <div class="sig" id="sigWrap">
+        <p class="decl">I confirm I have completed my orientation.</p>
+        <canvas id="sigPad" role="img" aria-label="Signature box. Sign with your finger or mouse."></canvas>
+        <div class="sigrow"><span>Student signature</span><span id="sigHint">Sign in the box</span></div>
+      </div>
+    </div>
+    <button class="link" id="sigClear" type="button" style="align-self:center">Clear my signature</button>
+    <button class="link" id="bHome" type="button" style="align-self:center">Back to my journey</button>
+  </section>
+
+</div>
+
+<script>
+const SECTIONS = [
+ {title:"Program rules and expectations", sub:"Attending, absences, class changes, Head Teachers", qs:[
+  {p:["all"],q:"You cannot come to class today. What do you do?",o:["Contact your teacher","Do nothing","Ask a friend to sign in for you"],why:"If you cannot come to class, contact your teacher."},
+  {p:["all"],q:"You are going to stop class for a while, for example for a holiday or work. What do you do?",o:["Tell your teacher","Just stop coming","Tell your classmates only"],why:"Always tell your teacher if you need to stop class."},
+  {p:["all"],fixed:true,q:"You want to change your class. Who do you talk to first?",o:["Your class teacher","Head Teacher","{PROG} office"],why:"Go to your class teacher first. Class changes must be approved by the Head Teachers."},
+  {p:["all"],q:"Who is the Head Teacher at Campsie?",o:["Qing Cui","Jing Wen","The reception staff"],why:"The Head Teacher is Qing Cui, onsite on Tuesdays and Wednesdays. Always talk to your teacher before you talk to the Head Teacher."},
+  {p:["all"],q:"You have special needs, for example a disability or a health problem. What do you do?",o:["Tell your teacher","Keep it secret","Stop coming to class"],why:"Tell your teacher if you have special needs, so TAFE NSW can support you."},
+  {p:["AMEP","SEE"],q:"Can you change your class in the first 2 weeks of the term?",o:["No, there are no class changes in the first 2 weeks","Yes, any day","Yes, but only on Monday"],why:"There are no transfers in the first 2 weeks of the term."},
+  {p:["AMEP"],q:"You are away for more than 3 months. What do you need before you come back?",o:["An interview with an AMEP Pathway Guidance Officer (PGO)","Nothing, just come to class","A new Opal card"],why:"AMEP students away for more than 3 months need an interview with a PGO first."},
+  {p:["SEE"],q:"You are away for more than 3 months. What do you need before you come back?",o:["A new registration form and a new assessment","Nothing, just come to class","A letter from a friend"],why:"SEE students away for more than 3 months fill in a new registration form and do a new assessment."},
+  {p:["ESOL"],q:"What happens if you miss a lot of classes?",o:["You miss assessments and may not get your certificate","Nothing happens","You get extra holidays"],why:"If you are away, you miss scheduled assessments and may not complete your certificate."},
+  {p:["AMEP"],q:"You are going overseas. What do you do?",o:["Tell your teacher. You cannot study AMEP from overseas","Join your online class from overseas","Do nothing"],why:"Tell your teacher. You must not attend AMEP study from overseas."},
+  {p:["all"],q:"You have a cold or flu today. What do you do?",o:["Stay home and tell your teacher","Come to class anyway","Come and sit at the back of the class"],why:"If you feel unwell, stay home, avoid close contact with others, and tell your teacher."}
+ ]},
+ {title:"Classroom expectations", sub:"Being on time, taking part, face-to-face and online", qs:[
+  {p:["all"],q:"Your class starts at 9:00. When should you arrive?",o:["Before 9:00, so you are ready on time","At 9:30","Any time before lunch"],why:"Attend all classes and arrive and leave on time."},
+  {p:["all"],q:"What should you do in class?",o:["Join class activities and try your assessments","Sit quietly and do nothing","Use your phone"],why:"Actively take part in your class. Join activities, attempt assessments and follow your teacher's instructions."},
+  {p:["all"],q:"You need to leave class early today. What do you do?",o:["Tell your teacher","Leave without saying anything","Ask a friend to tell the teacher next week"],why:"Arrive and leave on time. If you must come late or leave early, in class or online, tell your teacher."},
+  {p:["all"],q:"Something at home is stopping you from coming to class. What do you do?",o:["Talk to your teacher about it","Stop coming and say nothing","Wait until the end of the term"],why:"Always talk to your teacher about anything that stops you from coming to your TAFE classes."},
+  {p:["all"],online:true,q:"In an online class, your teacher asks you to turn on your camera. What do you do?",o:["Turn your camera on","Leave the class","Ignore the teacher"],why:"In online classes, turn your camera or microphone on when your teacher asks."},
+  {p:["all"],online:true,q:"What do you need for an online class?",o:["A device with internet, and earphones","Nothing","Only a pen"],why:"For online classes, use a device with internet and bring your own earphones."},
+  {p:["all"],online:true,q:"In an online class, when should your microphone be on?",o:["Only when you need to speak","All the time","Never, even when the teacher asks"],why:"Keep your microphone on mute unless you need to speak. Turn your camera or microphone on when asked."},
+  {p:["all"],q:"You want to take a photo of a classmate. What do you do?",o:["Ask them first. Only take it if they say yes","Take it and post it online","Take it quickly so they do not see"],why:"Never photograph or record someone without their consent."},
+  {p:["all"],q:"You start to feel very sick in class. What do you do?",o:["Tell your teacher","Say nothing","Leave without telling anyone"],why:"Tell your teacher if you are unwell or hurt."}
+ ]},
+ {title:"Enrolment", sub:"Your TAFE NSW enrolment", qs:[
+  {p:["all"],q:"Why must you be enrolled in the course you attend?",o:["To use TAFE support services and get an Opal concession card","It is not important","Only to get a free lunch"],why:"You must be actively enrolled in the course you attend to use support services and get an Opal concession card."},
+  {p:["all"],q:"How will you get your enrolment link?",o:["By SMS on your phone","By post","From the canteen"],why:"You will receive your enrolment link by SMS."},
+  {p:["all"],q:"You get your enrolment SMS. When do you complete your enrolment?",o:["As soon as possible","At the end of the term","Never"],why:"Complete your enrolment as soon as possible after you get the SMS."},
+  {p:["all"],q:"What do you need to have ready to enrol?",o:["Your personal information, like your email, address and visa subclass","Your bank PIN","Nothing"],why:"Have your personal information ready: for example, your email, address and visa subclass. Never share your bank PIN."},
+  {p:["all"],q:"You need help with your enrolment. What can you do?",o:["Ask your teacher or a support person, like family or a case worker","Ask a stranger to enrol for you with your password","Do not enrol"],why:"Ask your teacher, or a support person like a family member, case worker or friend."},
+  {p:["AMEP","SEE"],campus:true,q:"When and where are the Enrolment Drop-in Sessions?",o:["Monday to Friday, 2:30pm to 3:30pm, Room 3 (Computer room)","Saturday at 9am at reception","Sunday in the classroom"],why:"Enrolment Drop-in Sessions: Monday to Friday, 2:30pm to 3:30pm, in Room 3, the Computer room."}
+ ]},
+ {title:"Course and unit information", sub:"Your course, units, assessments and appeals", qs:[
+  {p:["all"],q:"Where can you find information about your course?",o:["The course website. Scan the QR code in your orientation","The canteen","Facebook"],why:"Scan the QR code in your orientation slides to see the website for your course."},
+  {p:["all"],q:"What does your Course Assessment Guide tell you?",o:["What you need to do to complete your course","Where to park","The canteen menu"],why:"Your Course Assessment Guide tells you what you need to do to complete your course."},
+  {p:["AMEP"],q:"What must you do to keep studying in AMEP?",o:["Attend regularly and make progress","Come once a month","Nothing"],why:"You can study unlimited AMEP hours until you finish EAL 3, but you must attend regularly and make progress."},
+  {p:["SEE","ESOL"],q:"What do you need to do to get your certificate?",o:["Pass all the units in your course","Come to the first class only","Pay extra money"],why:"To receive your certificate, you need to pass the units in your course."},
+  {p:["all"],q:"What does your Unit Assessment Guide tell you?",o:["How and when you will be assessed in your unit","Your bus timetable","Your teacher's phone number"],why:"Your Unit Assessment Guide tells you what you must do to pass the unit and when you will be assessed."},
+  {p:["all"],q:"You do not know when your next assessment is. What do you do?",o:["Check your Unit Assessment Guide or ask your teacher","Guess","Wait and see"],why:"Check your Unit Assessment Guide, or ask your teacher."},
+  {p:["all"],q:"You think your assessment result is wrong. What can you do?",o:["Talk to your teacher. There is an appeals process","Nothing","Change the result yourself"],why:"You can explain your side, and an appeals process is available if you disagree."}
+ ]},
+ {title:"Academic integrity", sub:"Honest work, AI, cheating", qs:[
+  {p:["all"],q:"Your assessment is hard. Can you copy a friend's answers or ask AI to write them?",o:["No. Do your own work and ask your teacher for help","Yes, if nobody sees","Yes, AI is always OK"],why:"Do your own honest work. Ask your teacher what use of AI is OK. Cheating can be penalised."},
+  {p:["all"],q:"Can you use AI tools, like ChatGPT, in your assessments?",o:["Only if your teacher says it is OK, and only in the way they allow","Yes, always","Yes, to write all my answers"],why:"Ask your teacher what use of AI is acceptable before you use it."},
+  {p:["all"],q:"A friend asks to copy your assessment. What do you do?",o:["Say no. Sharing your answers is also cheating","Let them copy it","Send them a photo of it"],why:"Do your own honest work, and do not share your answers. Helping someone cheat is also cheating."},
+  {p:["all"],q:"You want to use words from a website in your work. What do you do?",o:["Use your own words, or say where the words came from","Copy and paste them","Say they are your own words"],why:"Use your own words. If you use someone else's words, say where they came from. Ask your teacher if you are not sure."},
+  {p:["all"],q:"Can you use your mobile phone for personal things in class or in an exam?",o:["No","Yes, any time","Yes, but only for social media"],why:"Do not use social media or phones for personal reasons in class or exams."},
+  {p:["all"],q:"What can happen if you cheat in an assessment?",o:["You may be penalised by TAFE NSW","Nothing","You get a higher mark"],why:"Cheating in assessments can be penalised. Read Every Student's Guide to Assessment to learn the rules."}
+ ]},
+ {title:"Student rights and responsibilities", sub:"Respect, rules, bullying and harassment", qs:[
+  {p:["all"],q:"Where can you read about your rights and responsibilities as a TAFE NSW student?",o:["The TAFE NSW Student Guide","A newspaper","Your phone's settings"],why:"The TAFE NSW Student Guide explains your rights and responsibilities."},
+  {p:["all"],q:"What is true about respect at TAFE NSW?",o:["You must respect everyone, and everyone must respect you","Only teachers need to be respectful","Respect is not important"],why:"Treat all staff, students and the public with respect. You also have the right to be treated with respect."},
+  {p:["all"],q:"Which one is a right you have as a TAFE NSW student?",o:["To learn in a safe place and be treated fairly","To pass without doing assessments","To use your phone in exams"],why:"You have the right to a safe learning environment and to be treated fairly and with respect. Read more in the TAFE NSW Student Guide."},
+  {p:["all"],q:"Which one is a responsibility you have as a TAFE NSW student?",o:["Attend class and follow your teacher's instructions","Come to class only when you want","Do your classmates' assessments for them"],why:"Your responsibilities include attending class, taking part, and following your teacher's instructions."},
+  {p:["all"],q:"Can you use rude or offensive language at TAFE?",o:["No, never","Yes, if you are angry","Yes, in your own language"],why:"Do not use offensive language. Treat everyone with respect, fairness and courtesy."},
+  {p:["all"],campus:true,q:"Can you smoke anywhere on campus?",o:["No. Never smoke in non-smoking areas","Yes, anywhere","Yes, in the classroom at break time"],why:"Do not smoke in any non-smoking area on campus."},
+  {p:["all"],q:"Someone is bullying or harassing you at TAFE. What do you do?",o:["Tell your teacher or TAFE staff. You can talk in private","Say nothing","Bully them back"],why:"Bullying, discrimination, harassment and violence are against TAFE NSW rules and the law. Tell your teacher or staff. You can speak in private."},
+  {p:["all"],q:"What can happen if a student harasses people, damages property or cheats?",o:["They may be penalised by TAFE NSW","Nothing happens","They get a prize"],why:"You may be penalised if you interrupt class, harass people, damage property or cheat in assessments."}
+ ]},
+ {campus:true,title:"Campsie campus", sub:"Student card, toilets, microwave, safety, medical needs", qs:[
+  {p:["all"],q:"You want a TAFE NSW student card. What do you do?",o:["Go to reception on Monday or Tuesday","Ask Security","Buy one online"],why:"Go to reception on Monday or Tuesday to get your TAFE NSW student card. Your first card is free."},
+  {p:["all"],q:"You lose your TAFE NSW student card. Is the new card free?",o:["No. Only your first card is free","Yes, every card is free","You do not need a card"],why:"You can only get your first TAFE NSW student card for free."},
+  {p:["all"],q:"What do you do after you use the toilet?",o:["Leave it clean for the next person","Leave paper on the floor","Leave the tap running"],why:"Please help keep our toilets clean."},
+  {p:["all"],q:"You want to heat your lunch in the microwave. What do you do?",o:["Follow the microwave safety rules. Never put metal or foil inside","Put your food in foil","Heat it and walk away"],why:"Use the microwave safely. Never put metal or foil inside, and stay with your food while it heats."},
+  {p:["all"],q:"You finish lunch in the kitchen. What do you do?",o:["Clean up and put rubbish in the bin","Leave it for the cleaners","Leave it on the table"],why:"Keep the kitchen, toilets and classrooms tidy. Do not litter on or around campus."},
+  {p:["all"],q:"You see a broken chair or a wet floor. What do you do?",o:["Tell your teacher or TAFE staff","Ignore it","Take a photo and post it"],why:"Report safety concerns, hazards and injuries to your teacher or TAFE staff."},
+  {p:["all"],q:"You hurt yourself on campus. What do you do?",o:["Tell your teacher or TAFE staff","Go home and say nothing","Wait until next week"],why:"Report injuries, illness and incidents to your teacher or TAFE staff."},
+  {p:["all"],q:"You need medicine or medical equipment, for example an asthma puffer. What do you do?",o:["Bring it with you to TAFE","Leave it at home","Ask a classmate to keep it"],why:"Carry any medical equipment you need when you are on campus."}
+ ]},
+ {campus:true,title:"Emergency", sub:"000, evacuation, lockdown, SafeZone", qs:[
+  {p:["all"],q:"There is danger on campus right now. What number do you call?",o:["000 (Triple Zero)","131 601","Your friend"],why:"Call Triple Zero (000) if there is immediate danger."},
+  {p:["all"],q:"The building must be evacuated. What do you do?",o:["Walk to the assembly area. Do not use the lifts","Take the lift down quickly","Run out of the building"],why:"Do not run. Do not use lifts. Go to the assembly area. Do not go back in until you are told."},
+  {p:["all"],q:"There is a lockdown. What do you do?",o:["Lock the door, stay out of sight, keep quiet, phone off","Go outside to look","Call your friends on speaker"],why:"Lock doors and windows, close blinds, lights off, stay out of sight, phone off, keep quiet and wait."},
+  {p:["all"],q:"The building is evacuated. Where do you wait?",o:["At the assembly point on the footpath, with your class","At the shops","At home"],why:"Stay on the footpath at the assembly point and stay with your class. Do not go shopping and do not go home."},
+  {p:["all"],q:"Which free app can you use to contact TAFE NSW Security?",o:["SafeZone","Opal Travel","WhatsApp"],why:"SafeZone connects you with the TAFE NSW Security Control Room."}
+ ]},
+ {title:"TAFE support services", sub:"Counselling, disability, multicultural, PGOs", qs:[
+  {p:["all"],q:"You want free counselling. What number do you call?",o:["131 601","000","7920 8992"],why:"Call 131 601 to book free course, career or personal counselling, or talk to an AMEP PGO about your course and career options."},
+  {p:["all"],q:"What can Disability Support Services help with?",o:["In-class support and changes to help you study","Parking fines","Travel visas"],why:"They organise reasonable adjustments, in-class support, access needs and adaptive technology."},
+  {p:["all"],q:"What can Multicultural Services help with?",o:["Advice about overseas qualifications and interpreters","Fixing your phone","Buying textbooks"],why:"They help with support services, overseas qualifications, interpreters and community support."},
+  {p:["AMEP"],q:"Who can help you with career or study pathways in AMEP?",o:["AMEP Pathway Guidance Officers (PGOs)","The canteen staff","Security"],why:"AMEP PGOs help with career and study pathways, class issues and referrals."}
+ ]},
+ {title:"Contact information", sub:"Who to contact, complaints, how TAFE contacts you", qs:[
+  {p:["all"],q:"You have a question about your units or your study. Who do you ask first?",o:["Your class teacher","The office","Security"],why:"Your first go-to person is always your class teacher."},
+  {p:["AMEP"],q:"What is the phone number for the Campsie AMEP office?",o:["7920 8992","7921 6483","131 601"],why:"Campsie AMEP office: 7920 8992, amepcampsie@tafensw.edu.au"},
+  {p:["AMEP"],q:"What is the email address for the Campsie AMEP office?",o:["amepcampsie@tafensw.edu.au","ameppgo-campsie@tafensw.edu.au","amep@gmail.com"],why:"Campsie AMEP office email: amepcampsie@tafensw.edu.au"},
+  {p:["AMEP"],q:"What is the phone number for the Campsie AMEP Pathway Guidance Officers (PGOs)?",o:["7921 6483","7920 8992","000"],why:"Campsie AMEP PGOs: 7921 6483, ameppgo-campsie@tafensw.edu.au"},
+  {p:["AMEP"],q:"What is the email address for the Campsie AMEP Pathway Guidance Officers (PGOs)?",o:["ameppgo-campsie@tafensw.edu.au","amepcampsie@tafensw.edu.au","help@gmail.com"],why:"Campsie AMEP PGOs: ameppgo-campsie@tafensw.edu.au"},
+  {p:["all"],q:"When do you call the office?",o:["To come back to study, update your contact details, or bring family and friends to study","To ask about your unit assessment","To change your class"],why:"Call the office to return to study, update your details, or bring family or friends to study. Ask your teacher about your units or changing class."},
+  {p:["all"],q:"Emails from your teacher end with which address?",o:["@tafensw.edu.au","@gmail.com","@hotmail.com"],why:"Your teacher's email ends with @tafensw.edu.au. Read emails from TAFE NSW and answer phone calls from us."},
+  {p:["all"],q:"You get an SMS from TAFE NSW. What do you do?",o:["Read it. Do not reply to it","Reply to the SMS","Delete it without reading"],why:"Read SMS messages from TAFE NSW, but do not reply to them."},
+  {p:["all"],q:"You are not happy with your class or your study. What do you do?",o:["Speak to your teacher first. You can ask for an interpreter","Keep quiet","Stop coming to class"],why:"It is important to tell us. Always speak to your teacher first. You can ask for an interpreter."},
+  {p:["all"],q:"You cannot log in to your TAFE account or the Wi-Fi. What do you do first?",o:["Ask your teacher for help","Use a friend's password","Give up"],why:"Ask your teacher first. Never share or use someone else's password."}
+ ]}
+];
+
+const KEY="campsie-orientation-quiz-v1";
+const $=id=>document.getElementById(id);
+let S={name:"",cls:"",prog:"AMEP",passed:[],cur:null,finishedAt:null};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const EXPIRE_MS=7*24*60*60*1000; // saved progress is forgotten 7 days after the student first starts
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(!s||typeof s!=="object")return;
+  if(s.startedAt&&Date.now()-s.startedAt>EXPIRE_MS){localStorage.removeItem(KEY);return}
+  S={...S,...s};if(S.name&&!S.startedAt){S.startedAt=Date.now();save()}}catch(e){}}
+const hasMode=()=>S.prog==="AMEP"||S.prog==="SEE";
+const noOnline=()=>hasMode()&&!(S.mode||[]).includes("Online");
+const onlineOnly=()=>hasMode()&&(S.mode||[]).length===1&&S.mode[0]==="Online";
+const qsFor=si=>SECTIONS[si].campus&&onlineOnly()?[]:SECTIONS[si].qs.filter(q=>(q.p.includes("all")||q.p.includes(S.prog))&&!(q.online&&noOnline())&&!(q.campus&&onlineOnly()));
+const act=()=>SECTIONS.map((_,i)=>i).filter(i=>qsFor(i).length>0);
+const doneCount=()=>act().filter(i=>S.passed.includes(i)).length;
+const allDone=()=>doneCount()===act().length;
+const nextAct=()=>{const k=act().find(i=>!S.passed.includes(i));return k===undefined?-1:k};
+const shuffle=n=>{const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function show(id){["start","home","quiz","secDone","badgeView"].forEach(s=>$(s).hidden=s!==id);window.scrollTo(0,0)}
+function steps(el,total,on){el.innerHTML=Array.from({length:total},(_,k)=>`<i class="${k<on?"on":""}"></i>`).join("")}
+
+// start
+document.querySelectorAll("[data-p]").forEach(b=>b.addEventListener("click",()=>{S.prog=b.dataset.p;markProg();$("startErr").hidden=true}));
+document.querySelectorAll("[data-m]").forEach(b=>b.addEventListener("click",()=>{const m=b.dataset.m;S.mode=S.mode||[];S.mode=S.mode.includes(m)?S.mode.filter(x=>x!==m):["F2F","Online"].filter(x=>x===m||S.mode.includes(x));markMode();$("startErr").hidden=true}));
+const needsMode=()=>S.prog==="AMEP"||S.prog==="SEE";
+const modeText=()=>(S.mode||[]).join(" & ");
+function markMode(){document.querySelectorAll("[data-m]").forEach(x=>{const on=(S.mode||[]).includes(x.dataset.m);x.setAttribute("aria-pressed",on?"true":"false");x.querySelector("i").textContent=on?"✓":""})}
+function markProg(){document.querySelectorAll("[data-p]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.p===S.prog?"true":"false"));$("modeBox").hidden=!needsMode();markMode()}
+$("go").addEventListener("click",()=>{
+  const n=$("name").value.trim(),c=$("cls").value.trim(),e=$("startErr");
+  if(!n){e.textContent="Please write your full name.";e.hidden=false;$("name").focus();return}
+  if(!c){e.textContent="Please write your class or teacher's name.";e.hidden=false;$("cls").focus();return}
+  if(!S.prog){e.textContent="Please choose AMEP, SEE or ESOL.";e.hidden=false;return}
+  if(needsMode()&&!(S.mode||[]).length){e.textContent="Please choose F2F, Online or both.";e.hidden=false;return}
+  if(!needsMode())S.mode=[];
+  e.hidden=true;
+  if(S.name&&S._lastProg&&S.prog!==S._lastProg){S.passed=[];S.finishedAt=null}
+  S.name=n;S.cls=c;S._lastProg=S.prog;S.cur=null;if(!S.startedAt)S.startedAt=Date.now();save();renderHome();show("home");
+});
+$("edit").addEventListener("click",()=>{$("name").value=S.name;$("cls").value=S.cls;markProg();show("start")});
+
+// journey
+function renderHome(){
+  $("hName").textContent=S.name;$("hProg").textContent=[S.prog,modeText(),S.cls].filter(Boolean).join(" · ");
+  const A=act(), N=A.length, done=doneCount(), all=done===N;
+  steps($("hSteps"),N,done);
+  $("hCount").textContent=all?`All ${N} parts passed. Your badge is ready!`:`${done} of ${N} parts passed. Pass all ${N} to get your badge.`;
+  const nextSi=nextAct();
+  const ol=$("secs");ol.innerHTML="";
+  A.forEach((i,idx)=>{
+    const s=SECTIONS[i];
+    const ok=S.passed.includes(i), nx=i===nextSi;
+    const segDone=ok&&(idx===N-1?all:S.passed.includes(A[idx+1]));
+    const li=document.createElement("li");li.className="stn"+(ok?" ok":nx?" now":"")+(segDone?" seg":"");
+    li.innerHTML=`<span class="dot" aria-hidden="true">${ok?"✓":""}</span><button type="button" id="sec-${i}"><span class="name"></span><span class="st">${ok?"Passed":nx?"Next · "+qsFor(i).length+" questions":qsFor(i).length+" questions"}</span></button>`;
+    li.querySelector(".name").textContent=s.title;
+    li.querySelector("button").setAttribute("aria-label",`Part ${idx+1}: ${s.title}. ${ok?"Passed":qsFor(i).length+" questions"}`);
+    li.querySelector("button").addEventListener("click",()=>startSec(i));
+    ol.appendChild(li);
+  });
+  const li=document.createElement("li");li.className="stn end"+(all?" ready":"");
+  li.innerHTML=`<span class="dot" aria-hidden="true"><svg viewBox="0 0 60 70" width="32" height="37"><path d="M18 38 L10 68 L20 62 L25 70 L30 42 Z M42 38 L50 68 L40 62 L35 70 L30 42 Z" fill="var(--accent)"/><circle cx="30" cy="28" r="24" fill="var(--gold-deep)"/><circle cx="30" cy="28" r="19" fill="var(--gold)"/><path d="M21 28 L27 34 L39 22" fill="none" stroke="var(--gold-ink)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><button type="button" id="finishTile" ${all?"":"disabled"}><span class="name">Your badge</span><span class="st">${all?"Tap to see":"Locked"}</span></button>`;
+  li.querySelector("button").addEventListener("click",()=>{if(all){renderBadge();show("badgeView")}});
+  ol.appendChild(li);
+}
+
+// quiz
+let sel=null;
+function startSec(si){S.cur={si,i:0,order:qsFor(si).map(q=>q.fixed?[...q.o.keys()]:shuffle(q.o.length))};save();renderQ();show("quiz")}
+function renderQ(){
+  const {si,i,order}=S.cur,qs=qsFor(si),q=qs[i];
+  steps($("qSteps"),qs.length,i);
+  $("qSec").textContent=SECTIONS[si].title;
+  $("qCount").textContent=`${i+1} of ${qs.length}`;
+  $("qText").textContent=q.q;$("fb").hidden=true;
+  sel=null;const chk=$("check");chk.textContent="Check";chk.disabled=true;chk.dataset.mode="check";
+  const box=$("opts");box.innerHTML="";
+  order[i].forEach((oi,pos)=>{
+    const b=document.createElement("button");b.type="button";b.className="a";b.id="opt-"+pos;b.dataset.oi=oi;
+    b.setAttribute("role","radio");b.setAttribute("aria-checked","false");
+    b.innerHTML=`<i></i><span></span>`;b.lastChild.textContent=q.o[oi].replace("{PROG}",S.prog);
+    b.addEventListener("click",()=>{if(b.disabled)return;sel=b;document.querySelectorAll(".a").forEach(x=>{const on=x===b;x.classList.toggle("sel",on);x.setAttribute("aria-checked",on?"true":"false")});$("check").disabled=false;$("fb").hidden=true});
+    box.appendChild(b);
+  });
+}
+$("check").addEventListener("click",()=>{
+  const chk=$("check"), fb=$("fb");
+  if(chk.dataset.mode==="next")return nextQ();
+  if(!sel)return;
+  const q=qsFor(S.cur.si)[S.cur.i];
+  if(sel.dataset.oi==="0"){
+    sel.classList.remove("sel");sel.classList.add("right");sel.querySelector("i").textContent="✓";
+    document.querySelectorAll(".a").forEach(b=>b.disabled=true);
+    fb.className="fb yes";fb.innerHTML="<b>Correct!</b><span></span>";fb.lastChild.textContent=q.why;fb.hidden=false;
+    const last=S.cur.i===qsFor(S.cur.si).length-1;
+    chk.textContent=last?"Finish this part":"Next question";chk.dataset.mode="next";chk.disabled=false;chk.focus();
+  }else{
+    sel.classList.remove("sel");sel.classList.add("wrong");sel.disabled=true;sel.setAttribute("aria-checked","false");sel.querySelector("i").textContent="✕";
+    sel=null;chk.disabled=true;
+    fb.className="fb no";fb.innerHTML="<b>Not correct. Try again.</b><span>Read the question again and choose another answer.</span>";fb.hidden=false;
+  }
+});
+function nextQ(){
+  const qs=qsFor(S.cur.si);
+  if(S.cur.i<qs.length-1){S.cur.i++;save();renderQ();return}
+  const si=S.cur.si;if(!S.passed.includes(si))S.passed.push(si);S.cur=null;
+  const N=act().length, all=allDone();
+  if(all&&!S.finishedAt)S.finishedAt=new Date().toISOString();
+  save();
+  $("sdTitle").textContent=`${SECTIONS[si].title}: passed!`;
+  $("sdText").textContent=all?`You passed all ${N} parts. Well done!`:`All correct. ${N-doneCount()} parts to go.`;
+  const nextSi=nextAct();
+  const nb=$("sdNext");
+  if(all){nb.textContent="See my badge";nb.className="btn gold";nb.onclick=()=>{renderBadge();show("badgeView")}}
+  else{nb.textContent=`Next stop: ${SECTIONS[nextSi].title}`;nb.className="btn";nb.onclick=()=>startSec(nextSi)}
+  show("secDone");
+}
+$("back").addEventListener("click",()=>{S.cur=null;save();renderHome();show("home")});
+$("sdHome").addEventListener("click",()=>{renderHome();show("home")});
+$("bHome").addEventListener("click",()=>{renderHome();show("home")});
+
+// badge
+(function(){let d="";const n=16;for(let k=0;k<n*2;k++){const r=k%2?56:66,a=Math.PI*k/n;d+=(k?"L":"M")+(r*Math.cos(a)).toFixed(1)+" "+(r*Math.sin(a)).toFixed(1)}$("rosette").setAttribute("d",d+"Z")})();
+function renderBadge(){
+  $("bName").textContent=S.name;$("bProg").textContent=S.prog;$("bClass").textContent=S.cls;
+  const mt=modeText();$("bMode").textContent=mt;$("bMode").hidden=$("bModeL").hidden=!mt;
+  const d=new Date(S.finishedAt||Date.now());
+  $("bDate").textContent=d.toLocaleString("en-AU",{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit"});
+  const N=act().length;
+  $("bTicks").innerHTML=Array.from({length:N},(_,i)=>`<span>${i+1}</span>`).join("");
+  $("bTicks").setAttribute("aria-label",`All ${N} parts passed`);
+  {const rows=Math.ceil(N/8),per=Math.ceil(N/rows);$("bTicks").style.maxWidth=(per*24+(per-1)*5+1)+"px";}
+  requestAnimationFrame(setupSig);
+}
+// signature pad
+let sigCtx=null,drawing=false,last=null;
+function setupSig(){
+  const c=$("sigPad"),r=c.getBoundingClientRect();if(!r.width)return;
+  const dpr=window.devicePixelRatio||1;c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr);
+  sigCtx=c.getContext("2d");sigCtx.setTransform(dpr,0,0,dpr,0,0);
+  sigCtx.lineWidth=2.6;sigCtx.lineCap="round";sigCtx.lineJoin="round";
+  sigCtx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#1d2433";
+  const signed=!!S.sig;$("sigWrap").classList.toggle("signed",signed);$("sigHint").textContent=signed?"Signed ✓":"Sign in the box";
+  if(signed){const img=new Image();img.onload=()=>sigCtx.drawImage(img,0,0,r.width,r.height);img.src=S.sig}
+}
+(function(){
+  const c=$("sigPad");
+  const pt=e=>{const r=c.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
+  c.addEventListener("pointerdown",e=>{if(!sigCtx)return;drawing=true;last=pt(e);try{c.setPointerCapture(e.pointerId)}catch(_){};sigCtx.beginPath();sigCtx.arc(last[0],last[1],1.2,0,Math.PI*2);sigCtx.fillStyle=sigCtx.strokeStyle;sigCtx.fill();e.preventDefault()});
+  c.addEventListener("pointermove",e=>{if(!drawing)return;const p=pt(e);sigCtx.beginPath();sigCtx.moveTo(last[0],last[1]);sigCtx.lineTo(p[0],p[1]);sigCtx.stroke();last=p;e.preventDefault()});
+  const end=()=>{if(!drawing)return;drawing=false;S.sig=c.toDataURL("image/png");save();$("sigWrap").classList.add("signed");$("sigHint").textContent="Signed ✓"};
+  c.addEventListener("pointerup",end);c.addEventListener("pointercancel",end);c.addEventListener("pointerleave",end);
+  $("sigClear").addEventListener("click",()=>{S.sig=null;save();setupSig()});
+  window.addEventListener("resize",()=>{if(!$("badgeView").hidden)setupSig()});
+})();
+
+// resume
+load();S.prog="AMEP";S._lastProg="AMEP";markProg();
+if(S.name&&S.prog){
+  if(S.cur&&S.cur.order){renderQ();show("quiz")}
+  else if(allDone()&&S.finishedAt){renderBadge();show("badgeView")}
+  else{renderHome();show("home")}
+}else show("start");
+</script>
+
+</body>
+</html>

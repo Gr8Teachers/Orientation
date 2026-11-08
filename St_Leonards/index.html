@@ -463,6 +463,7 @@ function renderBadge(){
   const N=act().length;
   $("bTicks").innerHTML=Array.from({length:N},(_,i)=>`<span>${i+1}</span>`).join("");
   $("bTicks").setAttribute("aria-label",`All ${N} parts passed`);
+  {const rows=Math.ceil(N/8),per=Math.ceil(N/rows);$("bTicks").style.maxWidth=(per*24+(per-1)*5+1)+"px";}
   requestAnimationFrame(setupSig);
 }
 // signature pad
