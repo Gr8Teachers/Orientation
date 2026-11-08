@@ -95,6 +95,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 .a:hover:not(:disabled){border-color:var(--accent)}
 .a.sel{border-color:var(--accent);background:var(--accent-soft)}
 .a.sel i{border:6px solid var(--accent)}
+.a.box i{border-radius:5px;color:var(--accent-ink)}
+.a.box.sel i{border:2px solid var(--accent);background:var(--accent)}
 .a.right{border-color:var(--ok);background:var(--ok-soft)}
 .a.right i{border:0;background:var(--ok);color:#fff}
 .a.wrong{border-color:var(--line);background:var(--panel);color:var(--muted);text-decoration:line-through;cursor:not-allowed}
@@ -260,7 +262,7 @@ const SECTIONS = [
   {p:["all"],q:"You start to feel very sick in class. What do you do?",o:["Tell your teacher","Say nothing","Leave without telling anyone"],why:"Tell your teacher if you are unwell or hurt."}
  ]},
  {title:"Enrolment", sub:"Your TAFE NSW enrolment", qs:[
-  {p:["all"],q:"Why must you be enrolled in the course you attend?",o:["To use parking, the library, support services and get an Opal concession","It is not important","Only to get a free lunch"],why:"You must be actively enrolled to use student parking, support services, the library and the Opal concession card."},
+  {p:["all"],multi:true,fixed:true,ans:[0,1,2],q:"Why must you be enrolled in the course you attend? (Tick all that apply)",o:["To record assessment outcomes and issue a certificate if you complete one","To access TAFE NSW support services","To access a student travel concession if you meet the eligibility criteria"],why:"All three are correct. Enrolment lets TAFE NSW record your assessment outcomes and issue your certificate, gives you access to support services, and lets you get a student travel concession if you are eligible."},
   {p:["all"],q:"How will you get your enrolment link?",o:["By SMS on your phone","By post","From the canteen"],why:"You will receive your enrolment link by SMS."},
   {p:["all"],q:"You get your enrolment SMS. When do you complete your enrolment?",o:["As soon as possible","At the end of the term","Never"],why:"Complete your enrolment as soon as possible after you get the SMS."},
   {p:["all"],q:"What do you need to have ready to enrol?",o:["Your personal information, like your email, address and visa subclass","Your bank PIN","Nothing"],why:"Have your personal information ready: for example, your email, address and visa subclass. Never share your bank PIN."},
@@ -411,18 +413,31 @@ function renderQ(){
   const box=$("opts");box.innerHTML="";
   order[i].forEach((oi,pos)=>{
     const b=document.createElement("button");b.type="button";b.className="a";b.id="opt-"+pos;b.dataset.oi=oi;
-    b.setAttribute("role","radio");b.setAttribute("aria-checked","false");
+    b.setAttribute("role",q.multi?"checkbox":"radio");b.setAttribute("aria-checked","false");if(q.multi)b.classList.add("box");
     b.innerHTML=`<i></i><span></span>`;b.lastChild.textContent=q.o[oi].replace("{PROG}",S.prog);
-    b.addEventListener("click",()=>{if(b.disabled)return;sel=b;document.querySelectorAll(".a").forEach(x=>{const on=x===b;x.classList.toggle("sel",on);x.setAttribute("aria-checked",on?"true":"false")});$("check").disabled=false;$("fb").hidden=true});
+    b.addEventListener("click",()=>{if(b.disabled)return;if(q.multi){const on=!b.classList.contains("sel");b.classList.toggle("sel",on);b.setAttribute("aria-checked",on?"true":"false");b.querySelector("i").textContent=on?"✓":"";$("check").disabled=!document.querySelector(".a.sel");$("fb").hidden=true;return}sel=b;document.querySelectorAll(".a").forEach(x=>{const on=x===b;x.classList.toggle("sel",on);x.setAttribute("aria-checked",on?"true":"false")});$("check").disabled=false;$("fb").hidden=true});
     box.appendChild(b);
   });
 }
 $("check").addEventListener("click",()=>{
   const chk=$("check"), fb=$("fb");
   if(chk.dataset.mode==="next")return nextQ();
-  if(!sel)return;
   const q=qsFor(S.cur.si)[S.cur.i];
-  if(sel.dataset.oi==="0"){
+  if(q.multi){
+    const picked=[...document.querySelectorAll(".a.sel")].map(x=>+x.dataset.oi).sort().join(), want=[...q.ans].sort().join();
+    if(picked===want){
+      document.querySelectorAll(".a.sel").forEach(x=>{x.classList.remove("sel");x.classList.add("right");x.querySelector("i").textContent="✓"});
+      document.querySelectorAll(".a").forEach(b=>b.disabled=true);
+      fb.className="fb yes";fb.innerHTML="<b>Correct!</b><span></span>";fb.lastChild.textContent=q.why;fb.hidden=false;
+      const last=S.cur.i===qsFor(S.cur.si).length-1;
+      chk.textContent=last?"Finish this part":"Next question";chk.dataset.mode="next";chk.disabled=false;chk.focus();
+    }else{
+      fb.className="fb no";fb.innerHTML="<b>Not correct. Try again.</b><span>Some answers are missing or wrong. Tick every correct answer, then press Check.</span>";fb.hidden=false;
+    }
+    return;
+  }
+  if(!sel)return;
+  if(sel.dataset.oi===String(q.a||0)){
     sel.classList.remove("sel");sel.classList.add("right");sel.querySelector("i").textContent="✓";
     document.querySelectorAll(".a").forEach(b=>b.disabled=true);
     fb.className="fb yes";fb.innerHTML="<b>Correct!</b><span></span>";fb.lastChild.textContent=q.why;fb.hidden=false;
