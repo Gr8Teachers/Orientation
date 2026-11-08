@@ -337,7 +337,7 @@ const KEY="stl-orientation-quiz-v2";
 const $=id=>document.getElementById(id);
 let S={name:"",cls:"",prog:"",passed:[],cur:null,finishedAt:null};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-const EXPIRE_MS=7*24*60*60*1000; // saved progress is forgotten 7 days after the student first starts
+const EXPIRE_MS=14*24*60*60*1000; // saved progress is forgotten 14 days after the student first starts
 function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(!s||typeof s!=="object")return;
   if(s.startedAt&&Date.now()-s.startedAt>EXPIRE_MS){localStorage.removeItem(KEY);return}
   S={...S,...s};if(S.name&&!S.startedAt){S.startedAt=Date.now();save()}}catch(e){}}
