@@ -251,7 +251,7 @@ const SECTIONS = [
   {p:["all"],q:"What should you do in class?",o:["Join class activities and try your assessments","Sit quietly and do nothing","Use your phone"],why:"Actively take part in your class. Join activities, attempt assessments and follow your teacher's instructions."},
   {p:["all"],q:"You need to leave class early today. What do you do?",o:["Tell your teacher","Leave without saying anything","Ask a friend to tell the teacher next week"],why:"Arrive and leave on time. If you must come late or leave early, in class or online, tell your teacher."},
   {p:["all"],q:"Something at home is stopping you from coming to class. What do you do?",o:["Talk to your teacher about it","Stop coming and say nothing","Wait until the end of the term"],why:"Always talk to your teacher about anything that stops you from coming to your TAFE classes."},
-  {p:["all"],q:"In an online class, your teacher asks you to turn on your camera. What do you do?",o:["Turn your camera on","Leave the class","Ignore the teacher"],why:"In online classes, turn your camera or microphone on when your teacher asks."}
+  {p:["all"],online:true,q:"In an online class, your teacher asks you to turn on your camera. What do you do?",o:["Turn your camera on","Leave the class","Ignore the teacher"],why:"In online classes, turn your camera or microphone on when your teacher asks."}
  ]},
  {title:"Health safety", sub:"Staying home when you are sick", qs:[
   {p:["all"],q:"You have a cold or flu today. What do you do?",o:["Stay home and tell your teacher","Come to class anyway","Go to the library instead"],why:"If you feel unwell, stay home, avoid close contact with others, and tell your teacher."},
@@ -273,8 +273,8 @@ const SECTIONS = [
   {p:["all"],q:"You think your assessment result is wrong. What can you do?",o:["Talk to your teacher. There is an appeals process","Nothing","Change the result yourself"],why:"You can explain your side, and an appeals process is available if you disagree."}
  ]},
  {title:"General class orientation", sub:"Online classes, tidy spaces, parking", qs:[
-  {p:["all"],q:"What do you need for an online class?",o:["A device with internet, and earphones","Nothing","Only a pen"],why:"For online classes, use a device with internet and bring your own earphones."},
-  {p:["all"],q:"In an online class, when should your microphone be on?",o:["Only when you need to speak","All the time","Never, even when the teacher asks"],why:"Keep your microphone on mute unless you need to speak. Turn your camera or microphone on when asked."},
+  {p:["all"],online:true,q:"What do you need for an online class?",o:["A device with internet, and earphones","Nothing","Only a pen"],why:"For online classes, use a device with internet and bring your own earphones."},
+  {p:["all"],online:true,q:"In an online class, when should your microphone be on?",o:["Only when you need to speak","All the time","Never, even when the teacher asks"],why:"Keep your microphone on mute unless you need to speak. Turn your camera or microphone on when asked."},
   {p:["all"],q:"You finish lunch in the tearoom. What do you do?",o:["Clean up and put rubbish in the bin","Leave it for the cleaners","Leave it on the table"],why:"Keep the toilets, tearooms and classrooms tidy. Do not litter on or around campus."},
   {p:["all"],q:"You need student parking. What do you do first?",o:["Tell your teacher","Park in the staff car park","Park anywhere you like"],why:"Tell your teacher if you need parking. Swipe your TAFE card to enter. Never park in staff car parks."}
  ]},
@@ -344,7 +344,7 @@ const $=id=>document.getElementById(id);
 let S={name:"",cls:"",prog:"",passed:[],cur:null,finishedAt:null};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&typeof s==="object")S={...S,...s}}catch(e){}}
-const qsFor=si=>SECTIONS[si].qs.filter(q=>q.p.includes("all")||q.p.includes(S.prog));
+const qsFor=si=>SECTIONS[si].qs.filter(q=>(q.p.includes("all")||q.p.includes(S.prog))&&!(q.online&&(S.prog==="AMEP"||S.prog==="SEE")&&!(S.mode||[]).includes("Online")));
 const shuffle=n=>{const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const N=SECTIONS.length;
 function show(id){["start","home","quiz","secDone","badgeView"].forEach(s=>$(s).hidden=s!==id);window.scrollTo(0,0)}
