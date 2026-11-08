@@ -251,7 +251,10 @@ const SECTIONS = [
   {p:["all"],q:"What should you do in class?",o:["Join class activities and try your assessments","Sit quietly and do nothing","Use your phone"],why:"Actively take part in your class. Join activities, attempt assessments and follow your teacher's instructions."},
   {p:["all"],q:"You need to leave class early today. What do you do?",o:["Tell your teacher","Leave without saying anything","Ask a friend to tell the teacher next week"],why:"Arrive and leave on time. If you must come late or leave early, in class or online, tell your teacher."},
   {p:["all"],q:"Something at home is stopping you from coming to class. What do you do?",o:["Talk to your teacher about it","Stop coming and say nothing","Wait until the end of the term"],why:"Always talk to your teacher about anything that stops you from coming to your TAFE classes."},
-  {p:["all"],online:true,q:"In an online class, your teacher asks you to turn on your camera. What do you do?",o:["Turn your camera on","Leave the class","Ignore the teacher"],why:"In online classes, turn your camera or microphone on when your teacher asks."}
+  {p:["all"],online:true,q:"In an online class, your teacher asks you to turn on your camera. What do you do?",o:["Turn your camera on","Leave the class","Ignore the teacher"],why:"In online classes, turn your camera or microphone on when your teacher asks."},
+  {p:["all"],online:true,q:"What do you need for an online class?",o:["A device with internet, and earphones","Nothing","Only a pen"],why:"For online classes, use a device with internet and bring your own earphones."},
+  {p:["all"],online:true,q:"In an online class, when should your microphone be on?",o:["Only when you need to speak","All the time","Never, even when the teacher asks"],why:"Keep your microphone on mute unless you need to speak. Turn your camera or microphone on when asked."},
+  {p:["all"],q:"You want to take a photo of a classmate. What do you do?",o:["Ask them first. Only take it if they say yes","Take it and post it online","Take it quickly so they do not see"],why:"Never photograph or record someone without their consent."}
  ]},
  {title:"Health safety", sub:"Staying home when you are sick", qs:[
   {p:["all"],q:"You have a cold or flu today. What do you do?",o:["Stay home and tell your teacher","Come to class anyway","Go to the library instead"],why:"If you feel unwell, stay home, avoid close contact with others, and tell your teacher."},
@@ -279,35 +282,29 @@ const SECTIONS = [
   {p:["all"],q:"Can you use your mobile phone for personal things in class or in an exam?",o:["No","Yes, any time","Yes, but only for social media"],why:"Do not use social media or phones for personal reasons in class or exams."},
   {p:["all"],q:"What can happen if you cheat in an assessment?",o:["You may be penalised by TAFE NSW","Nothing","You get a higher mark"],why:"Cheating in assessments can be penalised. Read Every Student's Guide to Assessment to learn the rules."}
  ]},
- {title:"General class orientation", sub:"Online classes, tidy spaces, parking", qs:[
-  {p:["all"],online:true,q:"What do you need for an online class?",o:["A device with internet, and earphones","Nothing","Only a pen"],why:"For online classes, use a device with internet and bring your own earphones."},
-  {p:["all"],online:true,q:"In an online class, when should your microphone be on?",o:["Only when you need to speak","All the time","Never, even when the teacher asks"],why:"Keep your microphone on mute unless you need to speak. Turn your camera or microphone on when asked."},
-  {p:["all"],campus:true,q:"You finish lunch in the tearoom. What do you do?",o:["Clean up and put rubbish in the bin","Leave it for the cleaners","Leave it on the table"],why:"Keep the toilets, tearooms and classrooms tidy. Do not litter on or around campus."},
-  {p:["all"],campus:true,q:"You need student parking. What do you do first?",o:["Tell your teacher","Park in the staff car park","Park anywhere you like"],why:"Tell your teacher if you need parking. Swipe your TAFE card to enter. Never park in staff car parks."}
- ]},
- {title:"General student information", sub:"Rights, responsibilities and complaints", qs:[
+ {title:"Student rights and responsibilities", sub:"Respect, rules, bullying and harassment", qs:[
   {p:["all"],q:"What is true about respect at TAFE NSW?",o:["You must respect everyone, and everyone must respect you","Only teachers need to be respectful","Respect is not important"],why:"Treat all staff, students and the public with respect. You also have the right to be treated with respect."},
-  {p:["all"],q:"You want to take a photo of a classmate. What do you do?",o:["Ask them first. Only take it if they say yes","Take it and post it online","Take it quickly so they do not see"],why:"Never photograph or record someone without their consent."},
   {p:["all"],q:"Which one is a right you have as a TAFE NSW student?",o:["To learn in a safe place and be treated fairly","To pass without doing assessments","To use your phone in exams"],why:"You have the right to a safe learning environment and to be treated fairly and with respect. Read more in the TAFE NSW Student Guide."},
   {p:["all"],q:"Which one is a responsibility you have as a TAFE NSW student?",o:["Attend class and follow your teacher's instructions","Come to class only when you want","Do your classmates' assessments for them"],why:"Your responsibilities include attending class, taking part, and following your teacher's instructions."},
   {p:["all"],q:"Can you use rude or offensive language at TAFE?",o:["No, never","Yes, if you are angry","Yes, in your own language"],why:"Do not use offensive language. Treat everyone with respect, fairness and courtesy."},
   {p:["all"],campus:true,q:"Can you smoke anywhere on campus?",o:["No. Never smoke in non-smoking areas","Yes, anywhere","Yes, in the classroom at break time"],why:"Do not smoke in any non-smoking area on campus."},
   {p:["all"],q:"Someone is bullying or harassing you at TAFE. What do you do?",o:["Tell your teacher or TAFE staff. You can talk in private","Say nothing","Bully them back"],why:"Bullying, discrimination, harassment and violence are against TAFE NSW rules and the law. Tell your teacher or staff. You can speak in private."},
-  {p:["all"],q:"What can happen if a student harasses people, damages property or cheats?",o:["They may be penalised by TAFE NSW","Nothing happens","They get a prize"],why:"You may be penalised if you interrupt class, harass people, damage property or cheat in assessments."},
-  {p:["all"],q:"You are not happy with your class or your study. What do you do?",o:["Speak to your teacher first. You can ask for an interpreter","Keep quiet","Stop coming to class"],why:"It is important to tell us. Always speak to your teacher first. You can ask for an interpreter."}
+  {p:["all"],q:"What can happen if a student harasses people, damages property or cheats?",o:["They may be penalised by TAFE NSW","Nothing happens","They get a prize"],why:"You may be penalised if you interrupt class, harass people, damage property or cheat in assessments."}
  ]},
- {campus:true,title:"On St Leonards campus", sub:"Map, Opal, parking, IT help", qs:[
+ {campus:true,title:"On St Leonards campus", sub:"Map, Opal, parking, tidy spaces, IT help", qs:[
   {p:["all"],q:"You need help with your Opal card or student parking. Who do you ask?",o:["Your teacher","The canteen staff","Security"],why:"Ask your teacher for help with your Opal card or student parking."},
   {p:["all"],q:"Where is the library?",o:["Building Q, ground floor","Building F","Building P"],why:"The library is on the ground floor of Building Q."},
   {p:["AMEP","SEE"],q:"Where are the AMEP / SEE classes?",o:["Building P","Building F","Building Q"],why:"AMEP, SEE and ESOL are in Building P."},
   {p:["ESOL"],q:"Where are the ESOL classes?",o:["Building P","Building F","Building Q"],why:"ESOL is in Building P."},
-  {p:["all"],q:"You cannot log in to your TAFE account or the Wi-Fi. What do you do first?",o:["Ask your teacher for help","Use a friend's password","Give up"],why:"Ask your teacher first. Never share or use someone else's password."}
+  {p:["all"],q:"You cannot log in to your TAFE account or the Wi-Fi. What do you do first?",o:["Ask your teacher for help","Use a friend's password","Give up"],why:"Ask your teacher first. Never share or use someone else's password."},
+  {p:["all"],campus:true,q:"You finish lunch in the tearoom. What do you do?",o:["Clean up and put rubbish in the bin","Leave it for the cleaners","Leave it on the table"],why:"Keep the toilets, tearooms and classrooms tidy. Do not litter on or around campus."},
+  {p:["all"],campus:true,q:"You need student parking. What do you do first?",o:["Tell your teacher","Park in the staff car park","Park anywhere you like"],why:"Tell your teacher if you need parking. Swipe your TAFE card to enter. Never park in staff car parks."}
  ]},
  {campus:true,title:"Emergency", sub:"000, evacuation, lockdown, SafeZone", qs:[
   {p:["all"],q:"There is danger on campus right now. What number do you call?",o:["000 (Triple Zero)","131 601","Your friend"],why:"Call Triple Zero (000) if there is immediate danger."},
   {p:["all"],q:"The building must be evacuated. What do you do?",o:["Walk to the assembly area. Do not use the lifts","Take the lift down quickly","Run out of the building"],why:"Do not run. Do not use lifts. Go to the assembly area. Do not go back in until you are told."},
   {p:["all"],q:"There is a lockdown. What do you do?",o:["Lock the door, stay out of sight, keep quiet, phone off","Go outside to look","Call your friends on speaker"],why:"Lock doors and windows, close blinds, lights off, stay out of sight, phone off, keep quiet and wait."},
-  {p:["all"],q:"Which free app can you use to contact TAFE NSW Security?",o:["SafeZone","Opal Travel","WhatsApp"],why:"SafeZone connects you with the TAFE NSW Security Control Room."},
+  {p:["all"],q:"Which free app can you use to contact TAFE NSW Security?",o:["SafeZone","Opal Travel","WhatsApp"],why:"SafeZone connects you with the TAFE NSW Security Control Room."}
  ]},
  {campus:true,title:"Campus safety", sub:"Hazards, injuries, safe spaces", qs:[
   {p:["all"],q:"You see a broken chair or a wet floor. What do you do?",o:["Tell your teacher or TAFE staff","Ignore it","Take a photo and post it"],why:"Report safety concerns, hazards and injuries to your teacher or TAFE staff."},
@@ -322,7 +319,7 @@ const SECTIONS = [
   {p:["all"],q:"What can Multicultural Services help with?",o:["Advice about overseas qualifications and interpreters","Fixing your phone","Buying textbooks"],why:"They help with support services, overseas qualifications, interpreters and community support."},
   {p:["AMEP"],q:"Who can help you with career or study pathways in AMEP?",o:["AMEP Pathway Guidance Officers (PGOs)","The canteen staff","Security"],why:"AMEP PGOs help with career and study pathways, class issues and referrals."}
  ]},
- {title:"Contact information", sub:"Who to contact and how TAFE contacts you", qs:[
+ {title:"Contact information", sub:"Who to contact, complaints, how TAFE contacts you", qs:[
   {p:["all"],q:"You have a question about your units or your study. Who do you ask first?",o:["Your class teacher","The office","Security"],why:"Your first go-to person is always your class teacher."},
   {p:["AMEP"],q:"What is the phone number for the St Leonards AMEP office?",o:["7920 4004","7921 7448","7920 6475"],why:"AMEP office: 7920 4004, stleonards.amep@tafensw.edu.au"},
   {p:["SEE"],q:"What is the phone number for the St Leonards SEE office?",o:["7921 7448","7920 4004","7920 6475"],why:"SEE office: 7921 7448, stlesolsee@tafensw.edu.au"},
@@ -333,7 +330,8 @@ const SECTIONS = [
   {p:["AMEP"],q:"What is the email address for the AMEP Pathway Guidance Officers (PGOs)?",o:["pgostl@tafensw.edu.au","stlesolsee@tafensw.edu.au","help@gmail.com"],why:"AMEP PGOs: pgostl@tafensw.edu.au"},
   {p:["all"],q:"When do you call the office?",o:["To come back to study, update your contact details, or bring family and friends to study","To ask about your unit assessment","To change your class"],why:"Call the office to return to study, update your details, or bring family or friends to study. Ask your teacher about your units or changing class."},
   {p:["all"],q:"Emails from your teacher end with which address?",o:["@tafensw.edu.au","@gmail.com","@hotmail.com"],why:"Your teacher's email ends with @tafensw.edu.au. Read emails from TAFE NSW and answer phone calls from us."},
-  {p:["all"],q:"You get an SMS from TAFE NSW. What do you do?",o:["Read it. Do not reply to it","Reply to the SMS","Delete it without reading"],why:"Read SMS messages from TAFE NSW, but do not reply to them."}
+  {p:["all"],q:"You get an SMS from TAFE NSW. What do you do?",o:["Read it. Do not reply to it","Reply to the SMS","Delete it without reading"],why:"Read SMS messages from TAFE NSW, but do not reply to them."},
+  {p:["all"],q:"You are not happy with your class or your study. What do you do?",o:["Speak to your teacher first. You can ask for an interpreter","Keep quiet","Stop coming to class"],why:"It is important to tell us. Always speak to your teacher first. You can ask for an interpreter."}
  ]},
  {title:"Enrolment", sub:"Your TAFE NSW enrolment", qs:[
   {p:["all"],q:"Why must you be enrolled in the course you attend?",o:["To use parking, the library, support services and get an Opal concession","It is not important","Only to get a free lunch"],why:"You must be actively enrolled to use student parking, support services, the library and the Opal concession card."},
